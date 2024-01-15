@@ -1,2 +1,2 @@
 # IphoneversionofmeosHTV
- klein project waar ik aan werk waar ik alle artikelen kan vinden die van balang zijn voor de opleiding HTV
+Dit project is uitsluitend voor trainings doeleinde. Ik heb dit na gemaakt van het MEOS van de politie. Ik doe zelf de opleiding HTV en moet dus oefenen met gegevens noteren of eventuele gegevens verwerken. Nogmaals het is voor trainings doeleinde.
