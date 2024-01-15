@@ -107,10 +107,10 @@ body {
         <input type="number" id="fineAmount" name="fineAmount" required>
 
         <label for="fineReason">Reden van de boete:</label>
-        <textarea id="fineReason" name="fineReason" required></textarea>
+        <textarea id="fineReason" name="fineReason" required placeholder="Zet hier het artikel in en wat er is gebeurt."></textarea>
 
         <label for="personStatement">Verklaring van de persoon:</label>
-        <textarea id="personStatement" name="personStatement"></textarea>
+        <textarea id="personStatement" name="personStatement" placeholder="Geef aan dat persoon niet tot antwoorden verplicht is en dat hij een raadsman mag raadplegen op eigen kosten."></textarea>
 
         <input type="submit" value="Verstuur">
     </form>
@@ -134,11 +134,11 @@ document.getElementById('personData').onsubmit = async function(e) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            content: `Nieuwe inzending: 
-            Naam: ${formData.get('fullName')}
-            Boetebedrag: €${formData.get('fineAmount')}
-            Reden van de boete: ${formData.get('fineReason')}
-            Verklaring van de persoon: ${formData.get('personStatement')}`,
+            content: `Verwerkte Gegevens: 
+            **Naam:** ${formData.get('fullName')}
+            **Boetebedrag:** €${formData.get('fineAmount')}
+            **Reden van de boete:** ${formData.get('fineReason')}
+            **Verklaring van de persoon:** ${formData.get('personStatement')}`,
             // Voeg hier eventueel nog andere velden toe
         }),
     });
