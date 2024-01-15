@@ -86,6 +86,24 @@ body {
     .alert-message.error {
     background-color: #f44336;
     }
+
+    .back-button {
+            padding: 10px 15px;
+            background-color: #be0000; /* Groene achtergrond */
+            color: white; /* Witte tekst */
+            border: none; /* Geen rand */
+            border-radius: 5px; /* Afgeronde hoeken */
+            cursor: pointer; /* Cursor verandert in een handje wanneer je erover hovert */
+            font-size: 16px; /* Lettergrootte */
+            margin-bottom: 15px; /* Ruimte onder de knop */
+            transition: background-color 0.3s; /* Overgangseffect voor de achtergrondkleur */
+            width: 70px;
+    }
+    .back-button:hover {
+            background-color: #be0000; /* Donkergroene achtergrond bij hover */
+    }
+
+
 </style>
 
 
@@ -96,6 +114,10 @@ body {
 
 </head>
 <body>
+    <body>
+        <button onclick="goBack()" class="back-button">Ga Terug</button>
+
+
     <form id="personData" action="verwerkings-script-url" method="post" enctype="multipart/form-data">
         <label for="fullName">Volledige naam:</label>
         <input type="text" id="fullName" name="fullName" required>
@@ -151,6 +173,11 @@ console.error('Error:', response);
 alert('Er is een fout opgetreden bij het versturen van het formulier.');
 }
 };
+
+function goBack() {
+    window.history.back();
+}
+
 
 </script>
 
