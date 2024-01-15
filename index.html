@@ -3,7 +3,6 @@
 <head>
     <title>Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
 
@@ -17,6 +16,10 @@
         padding: 0;
         font-family: Arial, sans-serif;
         color: white; /* Voor betere leesbaarheid bij een donkere achtergrond */
+        width: 390px;
+        height: 844px;
+    
+    
         }
 
         .grid-item a {
@@ -29,6 +32,7 @@
             border-radius: 5px; /* Voegt afgeronde hoeken toe aan de grid items */
             text-decoration: none; /* Verwijdert de onderstreping van links */
             transition: background-color 0.3s; /* Voegt een overgangseffect toe */
+            width: auto;
         }
         
         .grid-container {
@@ -37,6 +41,10 @@
             grid-gap: 10px; /* Ruimte tussen de grid items */
             padding: 10px;
             background-color: #13237e; /* Blauwe achtergrond zoals in de afbeelding */
+            width: 390px;
+            height: auto;
+        
+        
         }
 
         .grid-item a:hover {
@@ -44,7 +52,8 @@
         }   
         
         .grid-item img {
-            max-width: 50%; /* Zorgt ervoor dat de afbeelding zich aanpast aan de container /
+            max-width: 40%;
+            width: 97px; /* Zorgt ervoor dat de afbeelding zich aanpast aan de container /
             height: auto; / Behoudt de verhoudingen van de afbeelding /
             margin-bottom: 15px; / Voegt ruimte toe onder de afbeelding */
         }
@@ -72,7 +81,7 @@
     <div class="grid-item">
         <a href="https://ovi.rdw.nl/" target="_blank">
             <img src="path_to_vervoermiddel_icon.png" alt="Vervoermiddel">
-            <p>Vervoermiddel</p>
+            <p>Vervoer</p>
         </a>
     </div>
 
