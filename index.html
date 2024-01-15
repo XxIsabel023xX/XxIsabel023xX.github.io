@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+        background-color: #333; /* Donkere achtergrond voor de gehele pagina */
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: white; /* Voor betere leesbaarheid bij een donkere achtergrond */
+        }
+
+        .grid-item a {
+            display: block;
+            background-color: #13237e; /* Lichtere blauwe achtergrond voor de items */
+            color: white; /* Tekstkleur */
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+            border-radius: 5px; /* Voegt afgeronde hoeken toe aan de grid items */
+            text-decoration: none; /* Verwijdert de onderstreping van links */
+            transition: background-color 0.3s; /* Voegt een overgangseffect toe */
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Twee kolommen */
+            grid-gap: 10px; /* Ruimte tussen de grid items */
+            padding: 10px;
+            background-color: #13237e; /* Blauwe achtergrond zoals in de afbeelding */
+        }
+
+        .grid-item a:hover {
+        background-color: #13237e; /* Verandert de achtergrondkleur bij hover */
+        }   
+        
+        .grid-item img {
+            max-width: 50%; /* Zorgt ervoor dat de afbeelding zich aanpast aan de container /
+            height: auto; / Behoudt de verhoudingen van de afbeelding /
+            margin-bottom: 15px; / Voegt ruimte toe onder de afbeelding */
+        }
+
+
+        .grid-item {
+            background-color: #13357e;
+            color: white;
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+        /* Hier kunnenmeer specifieke stijlen voor pictogrammen en tekst worden toegevoegd. */
+</style>
+
+</head>
+<body>
+<div class="grid-container">
+    <div class="grid-item">
+        <a href="link-naar-persoon-pagina.html">
+            <img src="path_to_person_icon.png" alt="Persoon">
+            <p>Persoon</p>
+        </a>
+    </div>
+    <div class="grid-item">
+        <a href="https://ovi.rdw.nl/" target="_blank">
+            <img src="path_to_vervoermiddel_icon.png" alt="Vervoermiddel">
+            <p>Vervoermiddel</p>
+        </a>
+    </div>
+
+    <div class="grid-item">
+        <a href="https://www.google.com/maps" target="_blank">
+            <img src="path_to_Locatie_icon.png" alt="Locatie">
+            <p>Locatie</p>
+        </a>
+    </div>
+    <div class="grid-item">
+        <a href="link-naar-Artikels-pagina.html">
+            <img src="path_to_Artikels_icon.png" alt="Artikels">
+            <p>Artikels</p>
+        </a>
+    </div>
+    <!-- Herhaal voor elke categorie -->
+</div>
+</body>
+</html>

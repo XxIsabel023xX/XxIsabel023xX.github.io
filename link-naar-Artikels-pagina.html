@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetten Zoeken voor Handhavers</title>
+    <style>
+        body {
+            background-color: #333;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #13237e;
+            border-radius: 5px;
+        }
+        select, button {
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        #articlesContainer {
+            margin-top: 20px;
+        }
+        .back-button {
+            padding: 10px 15px;
+            background-color: #be0000; /* Groene achtergrond */
+            color: white; /* Witte tekst */
+            border: none; /* Geen rand */
+            border-radius: 5px; /* Afgeronde hoeken */
+            cursor: pointer; /* Cursor verandert in een handje wanneer je erover hovert */
+            font-size: 16px; /* Lettergrootte */
+            margin-bottom: 15px; /* Ruimte onder de knop */
+            transition: background-color 0.3s; /* Overgangseffect voor de achtergrondkleur */
+            width: 70px;
+        }
+        .back-button:hover {
+            background-color: #be0000; /* Donkergroene achtergrond bij hover */
+        }
+    </style>
+</head>
+<body>
+    <button onclick="goBack()" class="back-button">Ga Terug</button>
+
+
+
+
+<div class="container">
+    <h1>Zoek Wetten</h1>
+    <form id="lawSearch">
+        <label for="categorie">Kies een categorie:</label>
+        <select id="categorie" name="categorie">
+            <option value="WWM">Wet Wapens en Munitie (WWM)</option>
+            <option value="openbareOrde">Openbare Orde</option>
+            <option value="Wet gedeeltelijk verbod gezichtsbedekkende kleding">Wet gedeeltelijk verbod gezichtsbedekkende kleding</option>
+            <option value="WvW">Wegenverkeerswet (WvW)</option>
+            <!-- Voeg hier meer categorieën toe -->
+        </select>
+        <button type="submit">Zoek</button>
+    </form>
+
+    <!-- Container voor de weergegeven artikelen -->
+    <div id="articlesContainer">
+        <!-- Artikelen worden hier weergegeven -->
+    </div>
+</div>
+
+<script>
+    // Voorbeeld data voor de artikelen
+    var articles = {
+        'WWM': [
+            { 
+            title: 'Artikel 2 Wet wapens en munitie',
+            content: 'Wapens in de zin van deze wet zijn de hieronder vermelde of overeenkomstig dit artikellid aangewezen voorwerpen, onderverdeeld in de volgende categorieën.<br>'
+            
+            },
+            { 
+            title: 'Categorie I',
+            content:
+            '1°. stiletto’s, valmessen en vlindermessen;<br>' +
+            '<br>' +
+            '2°. andere opvouwbare messen, indien:<br>' +
+            'a. het lemmet meer dan een snijkant heeft; of<br>' +
+            'b. de lengte in opengevouwen toestand langer dan 28 cm is;<br>' +
+            '<br>' +
+            '3°. boksbeugels, ploertendoders, wurgstokken, werpsterren, vilmessen, ballistische messen en geluiddempers voor vuurwapens;<br>' +
+            '<br>' +
+            '4°. blanke wapens die uiterlijk gelijken op een ander voorwerp dan een wapen;<br>' +
+            '<br>' +
+            '5°. pijlen en pijlpunten bestemd om door middel van een boog te worden afgeschoten, die zijn voorzien van snijdende delen met de kennelijke bedoeling daarmee ernstig letsel te kunnen veroorzaken;<br>' +
+            '<br>' +
+            '6°. katapulten;<br>' +
+            '<br>' +
+            '7°. andere door Onze Minister aangewezen voorwerpen die een ernstige bedreiging van personen kunnen vormen of die zodanig op een wapen gelijken, dat zij voor bedreiging of afdreiging geschikt zijn.<br>'
+            },
+            { 
+            title: 'Categorie II',
+            content:
+            '1°. vuurwapens die niet onder een van de andere categorieën vallen;<br>' +
+            '<br>' +
+            '2°. vuurwapens, geschikt om automatisch te vuren;<br>' +
+            '<br>' +
+            '3°. vuurwapens die zodanig zijn vervaardigd of gewijzigd dat het dragen niet of minder zichtbaar is dan wel dat de aanvalskracht wordt verhoogd;<br>' +
+            '<br>' +
+            '4°. vuurwapens die uiterlijk gelijken op een ander voorwerp dan een wapen;<br>' +
+            '<br>' +
+            '5°. voorwerpen waarmee door een elektrische stroomstoot personen weerloos kunnen worden gemaakt of pijn kan worden toegebracht, met uitzondering van medische hulpmiddelen;<br>' +
+            '<br>' +
+            '6°. voorwerpen, bestemd voor het treffen van personen met giftige, verstikkende, weerloosmakende, traanverwekkende en soortgelijke stoffen, met uitzondering van medische hulpmiddelen en van vuurwapens in de vorm van geweren, revolvers en pistolen, bestemd voor het afschieten van munitie met weerloosmakende of traanverwekkende stof;<br>' +
+            '<br>' +
+            '7°. voorwerpen bestemd voor het treffen van personen of zaken door vuur of door middel van ontploffing, met uitzondering van explosieven voor civiel gebruik indien met betrekking tot deze explosieven erkenning is verleend overeenkomstig de Wet explosieven voor civiel gebruik.<br>'
+            },
+            { 
+            title: 'Categorie III',
+            content:
+            '1°. vuurwapens in de vorm van geweren, revolvers en pistolen voor zover zij niet vallen onder categorie II sub 2°, 3° of 6°;<br>' +
+            '<br>' +
+            '2°. toestellen voor beroepsdoeleinden die geschikt zijn om projectielen af te schieten;<br>' +
+            '<br>' +
+            '3°. werpmessen;<br>' +
+            '<br>' +
+            '4°. alarm- en startpistolen en -revolvers, met uitzondering van alarm- en startpistolen die:<br>' +
+            'a. geen loop of een kennelijk verkorte, geheel gevulde loop hebben;<br>' +
+            'b. zodanig zijn ingericht dat zij uitsluitend knalpatronen van een kaliber niet groter dan 6 mm kunnen bevatten; en<br>' +
+            'c. waarvan de ligplaats van de patronen en de gasuitlaat loodrecht staan op de loop of op de lengterichting van het wapen.<br>' +
+            '<br>' 
+            },
+            { 
+            title: 'Categorie IV',
+            content:
+            '1°. blanke wapens waarvan het lemmet meer dan een snijkant heeft, voor zover zij niet vallen onder categorie I;<br>' +
+            '<br>' +
+            '2°. degens, zwaarden, sabels en bajonetten;<br>' +
+            '<br>' +
+            '3°. wapenstokken;<br>' +
+            '<br>' +
+            '4°. lucht-, gas- en veerdrukwapens, behoudens zulke door Onze Minister overeenkomstig categorie I, sub 7°, aangewezen die zodanig gelijken op een vuurwapen dat zij voor bedreiging of afdreiging geschikt zijn;<br>' +
+            '<br>' +
+            '5°. kruisbogen en harpoenen;<br>' +
+            '<br>' +
+            '6°. bij regeling van Onze Minister aangewezen voorwerpen die geschikt zijn om daarmee personen ernstig lichamelijk letsel toe te brengen;<br>' +
+            '<br>' +
+            '7°. Voorwerpen waarvan, gelet op hun aard of de omstandigheden waaronder zij worden aangetroffen, redelijkerwijs kan worden aangenomen dat zij zijn bestemd om letsel aan personen toe te brengen of te dreigen en die niet onder een van de andere categorieën vallen.<br>'
+            },
+        
+            // Voeg hier meer artikelen toe
+        ],
+        'openbareOrde': [
+            { 
+            title: 'Artikel 1',
+            content:
+            '1. Geen feit is strafbaar dan uit kracht van een daaraan voorafgegane wettelijke strafbepaling.<br>' +
+            '<br>' +
+            '2. Bij verandering in de wetgeving na het tijdstip waarop het feit begaan is, worden de voor de verdachte gunstigste bepalingen toegepast.<br>'
+            },
+            { 
+            title: 'Artikel 2',
+            content:
+            'De Nederlandse strafwet is toepasselijk op ieder die zich in Nederland aan enig strafbaar feit schuldig maakt.<br>'
+            },
+            { 
+            title: 'Artikel 3',
+            content:
+            'De Nederlandse strafwet is toepasselijk op ieder die zich buiten Nederland aan boord van een Nederlands vaartuig of luchtvaartuig aan enig strafbaar feit schuldig maakt.<br>'
+            },
+            { 
+            title: 'dronkenschap | Artikel 453',
+            content:
+            'Hij die zich in kennelijke staat van dronkenschapVolgende zoekterm markering op de openbare weg bevindt, wordt gestraft met hechtenis van ten hoogste twaalf dagen of geldboete van de eerste categorie.<br>'
+            },
+            { 
+            title: 'Verboden voor onbevoegden | Artikel 461',
+            content:
+            'Hij die, zonder daartoe gerechtigd te zijn, zich op eens anders grond waarvan de toegang op een voor hem blijkbare wijze door de rechthebbende is verboden, bevindt of daar vee laat lopen, wordt gestraft met geldboete van de eerste categorie.<br>'
+            },
+            // Artikelen voor openbare orde
+        ],
+        'Wet gedeeltelijk verbod gezichtsbedekkende kleding': [
+            { 
+            title: 'Artikel 1',
+            content:
+            '1. Het is verboden om in het openbaar vervoer en in gebouwen en bijbehorende erven van onderwijsinstellingen, overheidsinstellingen en zorginstellingen kleding te dragen die het gezicht geheel bedekt of zodanig bedekt dat alleen de ogen onbedekt zijn, dan wel onherkenbaar maakt<br>' +
+            '<br>' +
+            '2. Het eerste lid is niet van toepassing, voor zover kleding als bedoeld in dat lid:<br>' +
+            'a. wordt gedragen door cliënten, patiënten of hun bezoekers in residentiële delen van zorginstellingen,<br>' +
+            'b. noodzakelijk is ter bescherming van het lichaam in verband met de gezondheid of de veiligheid,<br>' +
+            'c. noodzakelijk is in verband met eisen die aan de uitoefening van een beroep of de beoefening van een sport worden gesteld, of<br>' +
+            'd. passend is in verband met het deelnemen aan een feestelijke of een culturele activiteit.<br>' +
+            '<br>' +
+            '3. In afwijking van het eerste lid kan het bevoegd gezag van een zorginstelling toestaan dat kleding als bedoeld in dat lid in niet-residentiële delen van de zorginstelling wordt gedragen door cliënten of patiënten die daar voor onbepaalde tijd verblijven, of hun bezoekers.<br>'
+            },
+            { 
+            title: 'Artikel 2',
+            content:
+            '1. Degene die handelt in strijd met artikel 1, eerste lid, wordt gestraft met een geldboete van de eerste categorie.<br>' +
+            '<br>' +
+            '2. Het in het eerste lid strafbaar gestelde feit is een overtreding.<br>'
+            },
+            { 
+            title: 'Artikel 3',
+            content:
+            'Deze wet treedt in werking op een bij koninklijk besluit te bepalen tijdstip.<br>'
+            },
+            { 
+            title: 'Artikel 4',
+            content:
+            'Deze wet wordt aangehaald als: Wet gedeeltelijk verbod gezichtsbedekkende kleding.<br>'
+            },
+            
+            // Artikelen voor openbare orde
+        ],
+        'WvW': [
+            { 
+            title: 'Artikel 5a',
+            content:
+            '1. Het is een ieder verboden opzettelijk zich zodanig in het verkeer te gedragen dat de verkeersregels in ernstige mate worden geschonden, indien daarvan levensgevaar of gevaar voor zwaar lichamelijk letsel voor een ander te duchten is. Als zodanige verkeersgedragingen kunnen de volgende gedragingen worden aangemerkt:<br>' +
+            '<br>' +
+            'a. onvoldoende rechts houden op onoverzichtelijke plaatsen;<br>' +
+            '<br>' +
+            'b. gevaarlijk inhalen;<br>' +
+            '<br>' +
+            'c. negeren van een roodVolgende zoekterm markering kruis;<br>' +
+            '<br>' +
+            'd. over een vluchtstrook rijden waar dit niet is toegestaan;<br>' +
+            '<br>' +
+            'e. inhalen voor of op een voetgangersoversteekplaats;<br>' +
+            '<br>' +
+            'f. niet verlenen van voorrang;<br>' +
+            '<br>' +
+            'g. overschrijden van de krachtens deze wet vastgestelde maximumsnelheid;<br>' +
+            '<br>' +
+            'h. zeer dicht achter een ander voertuig rijden;<br>' +
+            '<br>' +
+            'i. door roodVolgende zoekterm markering licht rijden;<br>' +
+            '<br>' +
+            'j. tegen de verkeersrichting inrijden;<br>' +
+            '<br>' +
+            'k. tijdens het rijden een mobiel elektronisch apparaat vasthouden;<br>' +
+            '<br>' +
+            'l. niet opvolgen van verkeersaanwijzingen van daartoe op grond van deze wet bevoegde personen<br>' +
+            '<br>' +
+            'm. overtreden van andere verkeersregels van soortgelijk belang als die onder a tot en met l genoemd.<br>' +
+            '<br>' +
+            '2. Bij de toepassing van het eerste lid wordt mede in aanmerking genomen de mate waarin de verdachte verkeerde in de toestand, bedoeld in artikel 8, eerste, tweede, derde, vierde of vijfde lid.<br>' 
+            },
+            { 
+            title: 'Artikel 6',
+            content:
+            'Het is een ieder die aan het verkeer deelneemt verboden zich zodanig te gedragen dat een aan zijn schuld te wijten verkeersongeval plaatsvindt waardoor een ander wordt gedood of waardoor een ander zwaar lichamelijk letsel wordt toegebracht of zodanig lichamelijk letsel dat daaruit tijdelijke ziekte of verhindering in de uitoefening van de normale bezigheden ontstaat.<br>'
+            },
+            { 
+            title: 'Artikel 7',
+            content:
+            '1. Het is degene die bij een verkeersongeval is betrokken of door wiens gedraging een verkeersongeval is veroorzaakt, verboden de plaats van het ongeval te verlaten indien:<br>' +
+            '<br>' +
+            'a. bij dat ongeval, naar hij weet of redelijkerwijs moet vermoeden, een ander is gedood dan wel letsel aan een ander is toegebracht;<br>' +
+            '<br>' +
+            'b. bij dat ongeval, naar hij weet of redelijkerwijs moet vermoeden, schade aan een ander is toegebracht;<br>' +
+            '<br>' +
+            'c. daardoor, naar hij weet of redelijkerwijs moet vermoeden, een ander aan wie bij dat ongeval letsel is toegebracht, in hulpeloze toestand wordt achtergelaten.<br>' +
+            '<br>' +
+            '2. Het eerste lid, aanhef en onderdelen a en b, is niet van toepassing op degene die op de plaats van het ongeval behoorlijk de gelegenheid heeft geboden tot vaststelling van zijn identiteit en, voor zover hij een motorrijtuig bestuurde, tevens van de identiteit van dat motorrijtuig.<br>' 
+            },
+            
+            // Artikelen voor Wegenverkeerswet
+        ]
+        // Voeg hier meer categorieën en hun artikelen toe
+    };
+
+    document.getElementById('lawSearch').onsubmit = function(event) {
+        event.preventDefault();
+        var category = document.getElementById('categorie').value;
+        
+        // Zoek en toon de artikelen voor de geselecteerde categorie
+        displayArticles(category);
+};
+
+function displayArticles(category) {
+    var container = document.getElementById('articlesContainer');
+    container.innerHTML = ''; // Maak de container leeg
+
+    if (articles[category]) {
+        articles[category].forEach(function(article) {
+            var element = document.createElement('div');
+            element.innerHTML = '<h3>' + article.title + '</h3><p>' + article.content + '</p>';
+            container.appendChild(element);
+        });
+    } else {
+        container.innerHTML = '<p>Geen artikelen gevonden voor deze categorie.</p>';
+    }
+}
+
+function goBack() {
+    window.history.back();
+}
+
+
+</script>
+
+</body>
+</html>
