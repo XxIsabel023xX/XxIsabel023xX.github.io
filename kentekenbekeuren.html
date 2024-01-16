@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bekeuren op kenteken</title>
+
+<style>
+
+body {
+    color: #fff; /* Voor een beter contrast met de donkere achtergrond */
+    font-family: Arial, sans-serif;
+    background-color: #333; /* Maakt de achtergrond puur zwart */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    max-width: 390px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #333; /* Dit is de achtergrondkleur van het formulier zelf */
+    padding: 20px;
+    border-radius: 8px;
+    color: #fff; /* Verandert tekstkleur in het formulier naar wit voor contrast */
+}
+
+  .form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    background-color: #333;
+ 
+    }
+
+    form input[type="text"],
+    form input[type="number"],
+    form input[type="file"],
+    form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Zorgt ervoor dat padding en border bij de breedte inbegrepen worden. */
+    }
+
+    form textarea {
+    height: 100px;
+
+    resize: vertical; /* Hiermee kunnen gebruikers de hoogte van het tekstgebied aanpassen. */
+    }
+
+    form input[type="submit"] {
+    background-color: #13237e;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    }
+
+    form input[type="submit"]:hover {
+    background-color: #13237e;
+    }
+
+    /* Stijl voor het weergeven van foutmeldingen of bevestigingsberichten */
+    .alert-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    color: #fff;
+    }
+
+    .alert-message.success {
+    background-color: #13237e;
+    }
+
+    .alert-message.error {
+    background-color: #f44336;
+    }
+
+    .back-button {
+            padding: 10px 15px;
+            background-color: #be0000; /* Groene achtergrond */
+            color: white; /* Witte tekst */
+            border: none; /* Geen rand */
+            border-radius: 5px; /* Afgeronde hoeken */
+            cursor: pointer; /* Cursor verandert in een handje wanneer je erover hovert */
+            font-size: 16px; /* Lettergrootte */
+            margin-bottom: 15px; /* Ruimte onder de knop */
+            transition: background-color 0.3s; /* Overgangseffect voor de achtergrondkleur */
+            width: 70px;
+    }
+    .back-button:hover {
+            background-color: #be0000; /* Donkergroene achtergrond bij hover */
+    }
+
+
+</style>
+
+
+
+
+
+
+
+</head>
+<body>
+    <body>
+        <button onclick="goBack()" class="back-button">Ga Terug</button>
+
+
+    <form id="personData" action="verwerkings-script-url" method="post" enctype="multipart/form-data">
+        <label for="fullName">Kenteken:</label>
+        <input type="text" id="fullName" name="fullName" required>
+
+        <label for="photo">Foto toevoegen:</label>
+        <input type="file" id="photo" name="photo" accept="image/*">
+
+        <label for="fineAmount">Boetebedrag (€):</label>
+        <input type="number" id="fineAmount" name="fineAmount" required>
+
+        <label for="fineReason">Reden van de boete:</label>
+        <textarea id="fineReason" name="fineReason" required placeholder="Zet hier het artikel in en wat er is gebeurt."></textarea>
+
+        <input type="submit" value="Verstuur">
+    </form>
+
+<script>
+        
+document.getElementById('personData').onsubmit = async function(e) {
+    e.preventDefault();
+
+    const webhookUrl = 'https://discord.com/api/webhooks/1196593379975368834/hDRim4kcVsmVlmxluOYiAqAqMgYiQwgYIV6anFXM_OyjfLMmBGuz4wfdY71AwZyd3ezo';
+    const formData = new FormData(e.target);
+    const searchParams = new URLSearchParams();
+
+    for (const pair of formData) {
+        searchParams.append(pair[0], pair[1]);
+    }
+
+    let response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            content: `Verwerkte Gegevens: 
+            **Kenteken:** ${formData.get('fullName')}
+            **Boetebedrag:** €${formData.get('fineAmount')}
+            **Reden van de boete:** ${formData.get('fineReason')}`,
+            // Voeg hier eventueel nog andere velden toe
+        }),
+    });
+
+    if (response.ok) {
+        console.log('Success:', response);
+alert('Formulier is succesvol verstuurd naar het Discord kanaal.');
+} else {
+console.error('Error:', response);
+alert('Er is een fout opgetreden bij het versturen van het formulier.');
+}
+};
+
+function goBack() {
+    window.history.back();
+}
+
+
+</script>
+
+</body>
+</html>
