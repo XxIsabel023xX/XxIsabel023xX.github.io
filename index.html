@@ -24,7 +24,7 @@
 
         .grid-item a {
             display: block;
-            background-color: #13237e; /* Lichtere blauwe achtergrond voor de items */
+            background-color: #003e9b; /* Lichtere blauwe achtergrond voor de items */
             color: white; /* Tekstkleur */
             padding: 20px;
             font-size: 20px;
@@ -40,7 +40,7 @@
             grid-template-columns: repeat(2, 1fr); /* Twee kolommen */
             grid-gap: 10px; /* Ruimte tussen de grid items */
             padding: 10px;
-            background-color: #13237e; /* Blauwe achtergrond zoals in de afbeelding */
+            background-color: #003e9b; /* Blauwe achtergrond zoals in de afbeelding */
             width: 390px;
             height: auto;
         
@@ -48,7 +48,7 @@
         }
 
         .grid-item a:hover {
-        background-color: #13237e; /* Verandert de achtergrondkleur bij hover */
+        background-color: #12438d; /* Verandert de achtergrondkleur bij hover */
         }   
         
         .grid-item img {
@@ -60,19 +60,83 @@
 
 
         .grid-item {
-            background-color: #13357e;
+            background-color: #003e9b;
             color: white;
             padding: 20px;
             font-size: 30px;
             text-align: center;
         }
+
+        .headmenu {
+            padding: 10px 15px;
+            background-color: #002e74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 380px;
+        }
+
+        .menupic {
+            max-width: 10%;
+            transition: transform 0.5s ease; /* Voeg toe voor een soepele draaiing */
+        }
+
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .side-nav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-nav a:hover {
+            color: #f1f1f1;
+        }
+
+        .menupic2 {
+            position: absolute; /* Positie absoluut binnen de zijbalk */
+            top: 10px; /* Afstand vanaf de bovenkant van de zijbalk */
+            left: 10px; /* Afstand vanaf de linkerzijde van de zijbalk */
+            width: 30px; /* Stel een vaste breedte in */
+            height: auto; /* Hoogte automatisch aanpassen op basis van de breedte */
+            transition: transform 0.5s ease; /* Voor een soepele draaiing */
+        }
         
         
-        /* Hier kunnenmeer specifieke stijlen voor pictogrammen en tekst worden toegevoegd. */
 </style>
 
 </head>
 <body>
+
+    <div class="headmenu">
+        <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        HTV-GMS
+    </div>
+
+    <div id="sideMenu" class="side-nav">
+        <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        <!-- Menu inhoud -->
+        <a href="Maker.html">Maker</a>
+        <a href="Informatie.html">Informatie</a>
+        <a href="pagina3.html">Link 3</a>
+        <a href="pagina4.html">Link 4</a>
+    </div>
+    
+
 <div class="grid-container">
     <div class="grid-item">
         <a href="link-naar-persoon-pagina.html">
@@ -119,5 +183,21 @@
     </div>
     <!-- Herhaal voor elke categorie -->
 </div>
+
+<script>
+function toggleMenu() {
+    var menu = document.getElementById("sideMenu");
+    var logo = document.querySelector('.menupic'); // Selecteer het logo
+
+    if (menu.style.width === "250px") {
+        menu.style.width = "0";
+        logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+    } else {
+        menu.style.width = "250px";
+        logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+    }
+}
+
+</script>
 </body>
 </html>

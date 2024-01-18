@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        @media only screen and (min-device-width : 1170px) and (max-device-width : 1170px) and (min-device-height : 2532px) and (max-device-height : 2532px) and (orientation : portrait) {
+            /* Uw CSS-stijlen voor dit specifieke apparaat/schermformaat */
+        }
+
+        body {
+            background-color: #333; /* Donkere achtergrond voor de gehele pagina */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white; /* Voor betere leesbaarheid bij een donkere achtergrond */
+            width: 390px;
+            height: 844px;
+        
+        
+        }
+
+
+        .headmenu {
+            padding: 10px 15px;
+            background-color: #002e74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 380px;
+        }
+
+        .menupic {
+            max-width: 10%;
+            transition: transform 0.5s ease; /* Voeg toe voor een soepele draaiing */
+        }
+
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .side-nav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-nav a:hover {
+            color: #f1f1f1;
+        }
+
+        .menupic2 {
+            position: absolute; /* Positie absoluut binnen de zijbalk */
+            top: 10px; /* Afstand vanaf de bovenkant van de zijbalk */
+            left: 10px; /* Afstand vanaf de linkerzijde van de zijbalk */
+            width: 30px; /* Stel een vaste breedte in */
+            height: auto; /* Hoogte automatisch aanpassen op basis van de breedte */
+            transition: transform 0.5s ease; /* Voor een soepele draaiing */
+        }
+
+        .container {
+            background-color: #003e9b;
+            width: 410px;
+            height: 844px;
+        }
+
+        .makerpic {
+            max-width: 30%;
+            border-radius: 100%;
+            position: absolute;
+            right: 60%;
+            top: 10%;
+        }
+        
+        .makerinfo {
+            max-width: 30%;
+            border-radius: 100%;
+            position: absolute;
+            right: 71%;
+            top: 40%;
+        }
+
+        .makerinfo2 {
+            max-width: 30%;
+            border-radius: 100%;
+            position: absolute;
+            right: 60%;
+            top: 45%;
+        }
+        
+</style>
+
+</head>
+<body>
+
+    <div class="headmenu">
+        <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        HTV-GMS
+    </div>
+
+    <div id="sideMenu" class="side-nav">
+        <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        <!-- Menu inhoud -->
+        <a href="Maker.html">Maker</a>
+        <a href="Informatie.html">Informatie</a>
+        <a href="pagina3.html">Link 3</a>
+        <a href="pagina4.html">Link 4</a>
+    </div>
+
+    <div>
+        <div class="container">
+            <img class="makerpic" src="maker.png" alt="maker">
+            <div class="makerinfo">
+                isabeletje
+            </div>
+            <div class="makerinfo2">
+                Hi, mijn naam is isabel en de reden van het maken van dit is omdat ik de opleiding tot handhaver volg (HTV) en ik graag een steuntje wilde hebben van de theorie die ik krijg op school. Vandaar kan je mijn antekeningen terug vinden onder het kopje `BOA theorie`. Verder vind ik het ook altijd geweldig om de artikels te weten van bijvoorbeeld de wegen verkeerst wet.<br>
+                <br>
+                Je kunt deze tool gebruiken voor eigen gebruik en is niet bedoelt om je zelf voor te doen als een BOA of Algemeen opsporings ambtenaar.<br>
+                Doe je dit toch, dan valt dit onder Artikel 196 van het WvSr.        
+            </div>
+            
+            
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+    <!-- Herhaal voor elke categorie -->
+</div>
+
+<script>
+function toggleMenu() {
+    var menu = document.getElementById("sideMenu");
+    var logo = document.querySelector('.menupic'); // Selecteer het logo
+
+    if (menu.style.width === "250px") {
+        menu.style.width = "0";
+        logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+    } else {
+        menu.style.width = "250px";
+        logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+    }
+}
+
+</script>
+</body>
+</html>
