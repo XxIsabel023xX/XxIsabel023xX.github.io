@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Inhoud Weergeven</title>
+    <style>
+        body {
+        background-color: #333; /* Donkere achtergrond voor de gehele pagina */
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: white; /* Voor betere leesbaarheid bij een donkere achtergrond */
+        width: 390px;
+        height: auto;
+    
+    
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #003e9b;
+            padding: 20px;
+        }
+        .article-title {
+            color: #ffffff;
+            font-size: 24px;
+            text-align: center;
+        }
+        .article-content, .article-explanation {
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        #fileContent {
+        background-color: #003e9b;
+        border: 1px solid #003e9b;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        color: #ffffff;
+        }
+
+        .back-button {
+            padding: 10px 15px;
+            background-color: #be0000; /* Groene achtergrond */
+            color: white; /* Witte tekst */
+            border: none; /* Geen rand */
+            border-radius: 5px; /* Afgeronde hoeken */
+            cursor: pointer; /* Cursor verandert in een handje wanneer je erover hovert */
+            font-size: 16px; /* Lettergrootte */
+            margin-bottom: 15px; /* Ruimte onder de knop */
+            transition: background-color 0.3s; /* Overgangseffect voor de achtergrondkleur */
+            width: 70px;
+        }
+        .back-button:hover {
+                background-color: #be0000; /* Donkergroene achtergrond bij hover */
+        }
+    </style>
+</head>
+<body>
+    <button onclick="goBack()" class="back-button">Ga Terug</button>
+<div class="container">
+        <h1 class="article-title">Artikel 6</h1>
+    <div id="fileContent">Hier komt de inhoud van het bestand...</div>
+
+
+</div>
+
+<script>
+        fetch('artikel6.txt')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('fileContent').innerText = text;
+            })
+            .catch(error => {
+                console.error('Er is een fout opgetreden bij het laden van het bestand:', error);
+            });
+
+            
+function goBack() {
+    window.history.back();
+}
+
+
+
+</script>
+
+</body>
+</html>

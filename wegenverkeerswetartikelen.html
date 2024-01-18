@@ -37,7 +37,7 @@
         
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Twee kolommen */
+            grid-template-columns: repeat(1, 1fr); /* Twee kolommen */
             grid-gap: 10px; /* Ruimte tussen de grid items */
             padding: 10px;
             background-color: #13237e; /* Blauwe achtergrond zoals in de afbeelding */
@@ -66,6 +66,22 @@
             font-size: 30px;
             text-align: center;
         }
+
+        .back-button {
+            padding: 10px 15px;
+            background-color: #be0000; /* Groene achtergrond */
+            color: white; /* Witte tekst */
+            border: none; /* Geen rand */
+            border-radius: 5px; /* Afgeronde hoeken */
+            cursor: pointer; /* Cursor verandert in een handje wanneer je erover hovert */
+            font-size: 16px; /* Lettergrootte */
+            margin-bottom: 15px; /* Ruimte onder de knop */
+            transition: background-color 0.3s; /* Overgangseffect voor de achtergrondkleur */
+            width: 70px;
+        }
+        .back-button:hover {
+                background-color: #be0000; /* Donkergroene achtergrond bij hover */
+        }
         
         
         /* Hier kunnenmeer specifieke stijlen voor pictogrammen en tekst worden toegevoegd. */
@@ -73,51 +89,54 @@
 
 </head>
 <body>
+    <button onclick="goBack()" class="back-button">Ga Terug</button>
+
 <div class="grid-container">
     <div class="grid-item">
-        <a href="link-naar-persoon-pagina.html">
-            <img src="path_to_person_icon.png" alt="Persoon">
-            <p>Persoon</p>
+        <a href="/artikelwvw/artikel5wvw.html">
+            <p>Artikel 5a</p>
         </a>
     </div>
     <div class="grid-item">
-        <a href="Vervoer.html">
-            <img src="path_to_vervoermiddel_icon.png" alt="Vervoermiddel">
-            <p>Vervoer</p>
+        <a href="/artikelwvw/artikel6wvw.html">
+            <p>Artikel 6</p>
         </a>
     </div>
 
     <div class="grid-item">
-        <a href="https://www.google.com/maps" target="_blank">
-            <img src="path_to_Locatie_icon.png" alt="Locatie">
-            <p>Locatie</p>
+        <a href="/artikelwvw/artikel7wvw.html">
+            <p>Artikel 7</p>
         </a>
     </div>
     <div class="grid-item">
-        <a href="link-naar-Artikels-pagina.html">
-            <img src="path_to_Artikels_icon.png" alt="Artikels">
-            <p>Artikels</p>
+        <a href="/artikelwvw/artikel8wvw.html">
+            <p>Artikel 8</p>
         </a>
     </div>
     <div class="grid-item">
-        <a href="link-naar-persoon-pagina.html" target="_blank">
-            <img src="path_to_Multimedia_icon.png" alt="Multimedia">
-            <p>Multimedia</p>
+        <a href="/artikelwvw/artikel9wvw.html">
+            <p>Artikel 9</p>
         </a>
     </div>
     <div class="grid-item">
-        <a href="link-naar-Afhandelen-pagina.html">
-            <img src="path_to_Afhandelen_icon.png" alt="Afhandelen">
-            <p>Afhandelen</p>
+        <a href="/artikelwvw/artikel10wvw.html">
+            <p>Artikel 10</p>
         </a>
     </div>
     <div class="grid-item">
-        <a href="BoaTheorie.html">
-            <img src="path_to_BoaTheorie_icon.png" alt="BoaTheorie">
-            <p>Boa Theorie</p>
+        <a href="/artikelwvw/artikel11wvw.html">
+            <p>Artikel 11</p>
         </a>
     </div>
     <!-- Herhaal voor elke categorie -->
 </div>
+
+<script>
+
+function goBack() {
+    window.history.back();
+}
+
+</script>
 </body>
 </html>

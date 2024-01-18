@@ -118,21 +118,49 @@ body {
         <button onclick="goBack()" class="back-button">Ga Terug</button>
 
 
-    <form id="personData" action="verwerkings-script-url" method="post" enctype="multipart/form-data">
-        <label for="fullName">Kenteken:</label>
-        <input type="text" id="fullName" name="fullName" required>
-
-        <label for="photo">Foto toevoegen:</label>
-        <input type="file" id="photo" name="photo" accept="image/*">
-
-        <label for="fineAmount">Boetebedrag (€):</label>
-        <input type="number" id="fineAmount" name="fineAmount" required>
-
-        <label for="fineReason">Reden van de boete:</label>
-        <textarea id="fineReason" name="fineReason" required placeholder="Zet hier het artikel in en wat er is gebeurt."></textarea>
-
-        <input type="submit" value="Verstuur">
-    </form>
+<form id="personData" action="verwerkings-script-url" method="post" enctype="multipart/form-data">
+    <label for="wvwArticle">Artikel Wegenverkeerswet:</label>
+        <select id="wvwArticle" name="wvwArticle" required>
+        <option value="">Selecteer een artikel...</option>
+        <option value="Artikel 5 wvw">Artikel 5 | Opzettelijk in ernstige mate schenden van bepaalde verkeersregels zonder dat dit leidt tot een ongeval met gevolgen </option>
+        <option value="Artikel 6 wvw">Artikel 6 | Opzettelijk in ernstige mate schenden van bepaalde verkeersregels zonder dat dit leidt tot een ongeval met gevolgen met ongeluk tot gevolg</option>
+        <option value="Artikel 7 wvw">Artikel 7 | Wegrijden bij een verkeers ongeval </option>
+        <option value="Artikel 8 wvw">Artikel 8 | Rijden onderinvloed</option>
+        <option value="Artikel 9 wvw">Artikel 9 | Rijden tijdens rijontzegging</option>
+        <option value="Artikel 10 wvw">Artikel 10 | Straatracen</option>
+        <option value="Artikel 11 wvw">Artikel 11 | Het is verboden opzettelijk wederrechtelijk een aan een ander toebehorend motorrijtuig op de weg te gebruiken.</option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        <option value="Artikel 6 wvw">Artikel 6 | </option>
+        
+        
+        
+        
+        
+        
+        
+        <!-- Voeg hier meer opties toe -->
+    </select>
+        
+    <label for="fullName">Kenteken:</label>
+    <input type="text" id="fullName" name="fullName" required>
+        
+    <label for="photo">Foto toevoegen:</label>
+    <input type="file" id="photo" name="photo" accept="image/*">
+        
+    <label for="fineAmount">Boetebedrag (€):</label>
+    <input type="number" id="fineAmount" name="fineAmount" required>
+        
+    <label for="fineReason">Reden van de boete:</label>
+    <textarea id="fineReason" name="fineReason" required placeholder="Zet hier het artikel in en wat er is gebeurt."></textarea>
+        
+    <input type="submit" value="Verstuur">
+</form>
 
 <script>
         
@@ -147,6 +175,8 @@ document.getElementById('personData').onsubmit = async function(e) {
         searchParams.append(pair[0], pair[1]);
     }
 
+
+
     let response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
@@ -154,6 +184,7 @@ document.getElementById('personData').onsubmit = async function(e) {
         },
         body: JSON.stringify({
             content: `Verwerkte Gegevens: 
+            **Artikel Wegenverkeerswet:** ${formData.get('wvwArticle')}
             **Kenteken:** ${formData.get('fullName')}
             **Boetebedrag:** €${formData.get('fineAmount')}
             **Reden van de boete:** ${formData.get('fineReason')}`,
