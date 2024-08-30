@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @media only screen and (min-device-width : 1170px) and (max-device-width : 1170px) and (min-device-height : 2532px) and (max-device-height : 2532px) and (orientation : portrait) {
+            /* Uw CSS-stijlen voor dit specifieke apparaat/schermformaat */
+        }
+        body {
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            width: 390px;
+            height: 844px;
+        }
+        .grid-item a {
+            display: block;
+            background-color: #003e9b;
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            width: auto;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            padding: 10px;
+            background-color: #003e9b;
+            width: 390px;
+            height: auto;
+        }
+        .grid-item a:hover {
+            background-color: #12438d;
+        }
+        .grid-item img {
+            max-width: 40%;
+            width: 97px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .grid-item {
+            background-color: #003e9b;
+            color: white;
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+        .back-button {
+            padding: 10px 15px;
+            background-color: #be0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+            width: 70px;
+        }
+        .back-button:hover {
+            background-color: #be0000;
+        }
+        .headmenu {
+            padding: 10px 15px;
+            background-color: #002e74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 380px;
+        }
+        .menupic {
+            max-width: 10%;
+            transition: transform 0.5s ease;
+        }
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .side-nav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .side-nav a:hover {
+            color: #f1f1f1;
+        }
+        .menupic2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        .search-bar {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .search-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #003e9b;
+        }
+        .search-button {
+            padding: 10px;
+            background-color: #003e9b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        .search-button:hover {
+            background-color: #12438d;
+        }
+        .results-container {
+            padding: 20px;
+        }
+        .result-item {
+            background-color: #444;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .result-item a {
+            color: #00afff;
+            text-decoration: none;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="headmenu">
+        <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        HTV-GMS
+    </div>
+    <div id="sideMenu" class="side-nav">
+        <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        <a href="Maker.html">Maker</a>
+        <a href="Informatie.html">Informatie</a>
+        <a href="pagina3.html">Link 3</a>
+        <a href="pagina4.html">Link 4</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchQuery" class="search-input" placeholder="Zoek artikel...">
+        <button class="search-button" onclick="searchArticles()">Zoeken</button>
+    </div>
+        <!-- Herhaal voor elke categorie -->
+    </div>
+    <div class="results-container" id="resultsContainer"></div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var logo = document.querySelector('.menupic');
+            if (menu.style.width === "250px") {
+                menu.style.width = "0";
+                logo.style.transform = "rotate(0deg)";
+            } else {
+                menu.style.width = "250px";
+                logo.style.transform = "rotate(90deg)";
+            }
+        }
+        async function searchArticles() {
+            const query = document.getElementById('searchQuery').value;
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '<p>Zoeken...</p>';
+            try {
+                const response = await fetch(`https://wetten.overheid.nl/zoeken/zoekresultaat/rs/2,3,4/titelf/1/tekst/${encodeURIComponent(query)}`);
+                const data = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const articles = doc.querySelectorAll('.result-item'); // pas dit aan afhankelijk van de structuur van de opgehaalde data
+                resultsContainer.innerHTML = '';
+                articles.forEach(article => {
+                    const title = article.querySelector('.title').innerText;
+                    const link = article.querySelector('a').href;
+                    const description = article.querySelector('.description').innerText;
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+                    resultItem.innerHTML = `
+                        <h3><a href="${link}" target="_blank">${title}</a></h3>
+                        <p>${description}</p>
+                    `;
+                    resultsContainer.appendChild(resultItem);
+                });
+            } catch (error) {
+                resultsContainer.innerHTML = '<p>Er is een fout opgetreden bij het ophalen van de gegevens.</p>';
+                console.error('Error fetching articles:', error);
+            }
+        }
+    </script>
+</body>
+</html>

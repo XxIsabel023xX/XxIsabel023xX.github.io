@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melding Registratie</title>
+    <style>
+        /* Algemene instellingen */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003e9b;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #26364e;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px; /* Extra ruimte bovenaan toegevoegd */
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px; /* Marges aangepast voor consistentie */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box; /* Box-sizing toegevoegd voor betere uitlijning */
+        }
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%; /* Knop breedte ingesteld op 100% */
+            box-sizing: border-box;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        .note {
+            font-style: italic;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Gegevens Melder</h2>
+        <form id="meldingForm">
+            <label for="naam">Naam:</label>
+            <input type="text" id="naam" name="naam" required>
+
+            <label for="adres">Adres:</label>
+            <input type="text" id="adres" name="adres" required>
+
+            <label for="woonplaats">Woonplaats:</label>
+            <input type="text" id="woonplaats" name="woonplaats" required>
+
+            <label for="telefoonnummer">Telefoonnummer:</label>
+            <input type="tel" id="telefoonnummer" name="telefoonnummer" required>
+
+            <h2>Gegevens Melding</h2>
+
+            <label for="pleegdatum">Pleegdatum/data/periode:</label>
+            <input type="text" id="pleegdatum" name="pleegdatum" required>
+
+            <label for="pleegplaats">Pleegplaats:</label>
+            <input type="text" id="pleegplaats" name="pleegplaats" required>
+
+            <label for="details">Eventueel straatnaam+huisnummer/andere details van de pleegplaats:</label>
+            <textarea id="details" name="details" rows="2" required></textarea>
+
+            <h2>Gegevens Melding (samenvatten in 1 zin)</h2>
+
+            <label for="reden">Reden:</label>
+            <input type="text" id="reden" name="reden" required>
+
+            <h2>Inhoud van de melding</h2>
+
+            <label for="inhoud">Inhoud:</label>
+            <textarea id="inhoud" name="inhoud" rows="4" required></textarea>
+
+            <h2>Gemaakte Afspraken</h2>
+
+            <label for="afspraken">Gemaakte afspraken:</label>
+            <textarea id="afspraken" name="afspraken" rows="3" required></textarea>
+
+            <h2>Verificatie</h2>
+
+            <p class="note">Dit verslag is naar waarheid opgemaakt door buitengewoon opsporingsambtenaar</p>
+
+            <label for="naam_ambtenaar">Naam:</label>
+            <input type="text" id="naam_ambtenaar" name="naam_ambtenaar" required>
+
+            <label for="datum">Datum:</label>
+            <input type="date" id="datum" name="datum" required>
+
+            <label for="handtekening">Handtekening (naam van de persoon die het inlevert):</label>
+            <input type="text" id="handtekening" name="handtekening" required>
+
+            <button type="submit" class="submit-button">Verstuur Melding</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('meldingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const webhookURL = "https://discord.com/api/webhooks/1279124744104575009/TVLBY4AkaYZMwUf2EWvLhg1l4H09G1lURvFxTMLq74CXcu34LqVKQLReG_0zoI1Qn35a"; // Voeg hier je Discord Webhook URL toe
+
+            const naam = document.getElementById('naam').value;
+            const adres = document.getElementById('adres').value;
+            const woonplaats = document.getElementById('woonplaats').value;
+            const telefoonnummer = document.getElementById('telefoonnummer').value;
+            const pleegdatum = document.getElementById('pleegdatum').value;
+            const pleegplaats = document.getElementById('pleegplaats').value;
+            const details = document.getElementById('details').value;
+            const reden = document.getElementById('reden').value;
+            const inhoud = document.getElementById('inhoud').value;
+            const afspraken = document.getElementById('afspraken').value;
+            const naam_ambtenaar = document.getElementById('naam_ambtenaar').value;
+            const datum = document.getElementById('datum').value;
+            const handtekening = document.getElementById('handtekening').value;
+
+            const message = {
+                "content": `**Gegevens Melder**\nNaam: ${naam}\nAdres: ${adres}\nWoonplaats: ${woonplaats}\nTelefoonnummer: ${telefoonnummer}\n\n**Gegevens Melding**\nPleegdatum/data/periode: ${pleegdatum}\nPleegplaats: ${pleegplaats}\nDetails: ${details}\n\n**Samenvatting**\nReden: ${reden}\n\n**Inhoud van de melding**\n${inhoud}\n\n**Gemaakte Afspraken**\n${afspraken}\n\n**Verificatie**\nNaam: ${naam_ambtenaar}\nDatum: ${datum}\nHandtekening: ${handtekening}`
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => {
+                if(response.ok) {
+                    alert('Melding succesvol verstuurd naar Discord!');
+                } else {
+                    alert('Er is iets misgegaan met het versturen van de melding.');
+                }
+            })
+            .catch(error => {
+                alert('Er is een fout opgetreden: ' + error);
+            });
+        });
+    </script>
+
+</body>
+</html>
