@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <title>Dashboard</title>
     <style>
-
-        @media only screen and (min-device-width : 1170px) and (max-device-width : 1170px) and (min-device-height : 2532px) and (max-device-height : 2532px) and (orientation : portrait) {
-            /* Uw CSS-stijlen voor dit specifieke apparaat/schermformaat */
-        }
-
+        /* Stijlen voor de body en de algemene pagina-instellingen */
         body {
             background-color: #333; /* Donkere achtergrond voor de gehele pagina */
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
             color: white; /* Voor betere leesbaarheid bij een donkere achtergrond */
-            width: 390px;
-            height: 844px;
-        
-        
         }
 
-
+        /* Stijlen voor het hoofdmenu */
         .headmenu {
             padding: 10px 15px;
             background-color: #002e74;
             color: white;
             border: none;
             cursor: pointer;
-            width: 380px;
+            display: flex;
+            align-items: center;
         }
 
         .menupic {
-            max-width: 10%;
-            transition: transform 0.5s ease; /* Voeg toe voor een soepele draaiing */
+            width: 30px; /* Voor een kleinere menuafbeelding */
+            margin-right: 10px; /* Ruimte tussen afbeelding en tekst */
+            transition: transform 0.5s ease; /* Voor een soepele draaiing */
         }
 
+        /* Stijlen voor het zijmenu */
         .side-nav {
             height: 100%;
             width: 0;
@@ -64,53 +59,75 @@
         }
 
         .menupic2 {
-            position: absolute; /* Positie absoluut binnen de zijbalk */
-            top: 10px; /* Afstand vanaf de bovenkant van de zijbalk */
-            left: 10px; /* Afstand vanaf de linkerzijde van de zijbalk */
-            width: 30px; /* Stel een vaste breedte in */
-            height: auto; /* Hoogte automatisch aanpassen op basis van de breedte */
-            transition: transform 0.5s ease; /* Voor een soepele draaiing */
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: auto;
+            transition: transform 0.5s ease;
         }
 
+        /* Container stijlen */
         .container {
             background-color: #003e9b;
-            width: 410px;
-            height: 844px;
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 90%; /* Breedte voor mobielvriendelijke weergave */
+            text-align: center; /* Centraal uitgelijnde inhoud */
+            border-radius: 10px;
         }
 
+        /* Afbeelding van de maker */
         .makerpic {
-            max-width: 60%;
-            border-radius: 100%;
-            position: absolute;
-            right: 20%;
-            top: 10%;
-        }
-        
-        .makerinfo {
-            text-align: center;
-            position: absolute;
-            left: 40%;
-            top: 45%;
+            width: 60%;
+            max-width: 150px; /* Maximale grootte voor de maker afbeelding */
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block; /* Zorgt ervoor dat de afbeelding in het midden van de container staat */
         }
 
-        .makerinfo2 {
-            text-align: center;
-            position: absolute;
-            top: 55%;
-            
-            
+        /* Informatie over de maker */
+        .makerinfo, .makerinfo2 {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 1.5;
         }
-        
-</style>
 
+        /* Media query voor kleine schermen */
+        @media (max-width: 480px) {
+            .headmenu {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .side-nav a {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .makerinfo, .makerinfo2 {
+                font-size: 14px;
+            }
+
+            .makerpic {
+                width: 50%;
+                max-width: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Hoofdmenu -->
     <div class="headmenu">
         <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
         HTV-GMS
     </div>
 
+    <!-- Zijmenu -->
     <div id="sideMenu" class="side-nav">
         <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
         <!-- Menu inhoud -->
@@ -120,48 +137,33 @@
         <a href="pagina4.html">Link 4</a>
     </div>
 
-    <div>
-        <div class="container">
-            <img class="makerpic" src="maker.png" alt="maker">
-            <div class="makerinfo">
-                isabeletje
-            </div>
-            <div class="makerinfo2">
-                Hi, mijn naam is isabel en de reden van het maken van dit is omdat ik de opleiding tot handhaver volg (HTV) en ik graag een steuntje wilde hebben van de theorie die ik krijg op school. Vandaar kan je mijn antekeningen terug vinden onder het kopje `BOA theorie`. Verder vind ik het ook altijd geweldig om de artikels te weten van bijvoorbeeld de wegen verkeerst wet.<br>
-                <br>
-                Je kunt deze tool gebruiken voor eigen gebruik en is niet bedoelt om je zelf voor te doen als een BOA of Algemeen opsporings ambtenaar.<br>
-                Doe je dit toch, dan valt dit onder Artikel 196 van het WvSr.        
-            </div>
-            
-            
-
-
+    <!-- Hoofdinhoud container -->
+    <div class="container">
+        <img class="makerpic" src="maker.png" alt="maker">
+        <div class="makerinfo">
+            isabeletje
         </div>
-
-
-
-
-
+        <div class="makerinfo2">
+            Hi, mijn naam is Isabel en de reden van het maken van dit is omdat ik de opleiding tot handhaver volg (HTV) en ik graag een steuntje wilde hebben van de theorie die ik krijg op school. Vandaar kan je mijn aantekeningen terugvinden onder het kopje 'BOA theorie'. Verder vind ik het ook altijd geweldig om de artikels te weten van bijvoorbeeld de wegenverkeerswet.<br><br>
+            Je kunt deze tool gebruiken voor eigen gebruik en is niet bedoeld om jezelf voor te doen als een BOA of Algemeen opsporingsambtenaar.<br>
+            Doe je dit toch, dan valt dit onder Artikel 196 van het WvSr.
+        </div>
     </div>
 
+    <script>
+        // Functie om het zijmenu te toggelen
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var logo = document.querySelector('.menupic');
 
-    <!-- Herhaal voor elke categorie -->
-</div>
-
-<script>
-function toggleMenu() {
-    var menu = document.getElementById("sideMenu");
-    var logo = document.querySelector('.menupic'); // Selecteer het logo
-
-    if (menu.style.width === "250px") {
-        menu.style.width = "0";
-        logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
-    } else {
-        menu.style.width = "250px";
-        logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
-    }
-}
-
-</script>
+            if (menu.style.width === "250px") {
+                menu.style.width = "0";
+                logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+            } else {
+                menu.style.width = "250px";
+                logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+            }
+        }
+    </script>
 </body>
 </html>
