@@ -68,9 +68,77 @@
         .submit-button:hover {
             background-color: #45a049;
         }
+                        /* Stijlen voor het hoofdmenu */
+                        .headmenu {
+            padding: 10px 15px;
+            background-color: #002e74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .menupic {
+            width: 30px; /* Voor een kleinere menuafbeelding */
+            margin-right: 10px; /* Ruimte tussen afbeelding en tekst */
+            transition: transform 0.5s ease; /* Voor een soepele draaiing */
+        }
+
+        /* Stijlen voor het zijmenu */
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .side-nav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-nav a:hover {
+            color: #f1f1f1;
+        }
+
+        .menupic2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
     </style>
 </head>
 <body>
+
+<!-- Hoofdmenu -->
+<div class="headmenu">
+    <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+    HTV-GMS
+</div>
+
+<!-- Zijmenu -->
+<div id="sideMenu" class="side-nav">
+    <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+    <!-- Menu inhoud -->
+    <a href="Maker.html">Maker</a>
+    <a href="Informatie.html">Informatie</a>
+    <a href="pagina3.html">Link 3</a>
+    <a href="index.html">Main Menu</a>
+</div>
 
     <div class="container">
         <h2>Boete Registratie</h2>
@@ -168,6 +236,20 @@
         // Initialiseer het formulier met de standaard geselecteerde boete-informatie
         updateBoeteDetails();
     </script>
+<script>
+    // Functie om het zijmenu te toggelen
+    function toggleMenu() {
+        var menu = document.getElementById("sideMenu");
+        var logo = document.querySelector('.menupic');
 
+        if (menu.style.width === "250px") {
+            menu.style.width = "0";
+            logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+        } else {
+            menu.style.width = "250px";
+            logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+        }
+    }
+</script>
 </body>
 </html>
