@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <style>
-
-        @media only screen and (min-device-width : 1170px) and (max-device-width : 1170px) and (min-device-height : 2532px) and (max-device-height : 2532px) and (orientation : portrait) {
-            /* Uw CSS-stijlen voor dit specifieke apparaat/schermformaat */
-        }
-
+        /* Algemene stijlen voor de body */
         body {
-            background-color: #333; /* Donkere achtergrond voor de gehele pagina */
+            background-color: #333;
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            color: white; /* Voor betere leesbaarheid bij een donkere achtergrond */
-            width: 390px;
-            height: 844px;
-        
-        
+            color: white;
         }
 
-
+        /* Stijlen voor het hoofdmenu */
         .headmenu {
             padding: 10px 15px;
             background-color: #002e74;
             color: white;
             border: none;
             cursor: pointer;
-            width: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .menupic {
-            max-width: 10%;
-            transition: transform 0.5s ease; /* Voeg toe voor een soepele draaiing */
+            width: 30px;
+            transition: transform 0.5s ease;
         }
 
+        /* Stijlen voor het zijmenu */
         .side-nav {
             height: 100%;
             width: 0;
@@ -51,9 +46,9 @@
         }
 
         .side-nav a {
-            padding: 8px 8px 8px 32px;
+            padding: 10px 15px;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 18px;
             color: #818181;
             display: block;
             transition: 0.3s;
@@ -64,114 +59,107 @@
         }
 
         .menupic2 {
-            position: absolute; /* Positie absoluut binnen de zijbalk */
-            top: 10px; /* Afstand vanaf de bovenkant van de zijbalk */
-            left: 10px; /* Afstand vanaf de linkerzijde van de zijbalk */
-            width: 30px; /* Stel een vaste breedte in */
-            height: auto; /* Hoogte automatisch aanpassen op basis van de breedte */
-            transition: transform 0.5s ease; /* Voor een soepele draaiing */
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: auto;
+            transition: transform 0.5s ease;
         }
 
+        /* Container voor de hoofdinhoud */
         .container {
             background-color: #003e9b;
-            width: 410px;
-            height: 844px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 90%;
+            border-radius: 10px;
         }
 
-        .information {
-            width: 410px;
-            height: auto;
-            position: absolute;
-            top: 8%;
+        /* Specifieke secties binnen de container */
+        .information, .gebruiksinformatie, .disclaimer {
             background-color: #002e74;
+            padding: 15px;
+            margin-top: 20px;
             text-align: center;
+            border-radius: 5px;
         }
 
-        .gebruiksinformatie {
-            width: 410px;
-            height: auto;
-            position: absolute;
-            top: 11%;
-            
-            text-align: center;
+        /* Media query voor schermen kleiner dan 600px */
+        @media (max-width: 600px) {
+            .headmenu {
+                font-size: 16px;
+            }
+
+            .side-nav a {
+                font-size: 16px;
+            }
+
+            .information, .gebruiksinformatie, .disclaimer {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .menupic {
+                width: 25px;
+            }
+
+            .container {
+                max-width: 95%;
+                padding: 15px;
+            }
         }
-        
-        .disclaimer {
-            width: 410px;
-            height: auto;
-            position: absolute;
-            top: 90%;
-            text-align: center;
-        }
-
-
-        
-</style>
-
+    </style>
 </head>
 <body>
 
+    <!-- Hoofdmenu -->
     <div class="headmenu">
         <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
         HTV-GMS
     </div>
 
+    <!-- Zijmenu -->
     <div id="sideMenu" class="side-nav">
         <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
         <!-- Menu inhoud -->
         <a href="Maker.html">Maker</a>
         <a href="Informatie.html">Informatie</a>
         <a href="pagina3.html">Link 3</a>
-        <a href="pagina4.html">Link 4</a>
+        <a href="index.html">Main Menu</a>
     </div>
 
-    <div>
-        <div class="container">
-            <div class="information">
-                Gebruikers Informatie<br>
-
+    <!-- Hoofdinhoud container -->
+    <div class="container">
+        <div class="information">
+            Gebruikers Informatie
         </div>
-    </div>
-    <div>
         <div class="gebruiksinformatie">
-            Voor het gebruiken van deze aplicatie is het goed om te weten dat deze app is gebasseerd op het MEOS van de politie. Je kunt deze app gebruiken voor het opzoeken van een kenteken of het opzoeken van bepaalde Artikels<br>
-            zoals:<br>
+            Voor het gebruiken van deze applicatie is het goed om te weten dat deze app is gebaseerd op het MEOS van de politie. Je kunt deze app gebruiken voor het opzoeken van een kenteken of het opzoeken van bepaalde Artikelen, zoals:<br>
             wvw (Wegen Verkeers Wet)<br>
             WWM (Wet Wapens en Munitie)<br>
-            Wet gedeeltelijk verbod gezichtsbedekkende kleding<br>
-            <br>
-            en nog veel meer. Deze app is voor het algemeen betoeld voor de BOA leeringen die de opleiding HTV volgen. Voor verdere vragen, opmerkingen of toevoegingen kan je altijd een issue aanmaken op github of mijn discord joinen.<br>
-            <br>
-            
-
+            Wet gedeeltelijk verbod gezichtsbedekkende kleding<br><br>
+            en nog veel meer. Deze app is voornamelijk bedoeld voor de BOA-leerlingen die de opleiding HTV volgen. Voor verdere vragen, opmerkingen of toevoegingen kun je altijd een issue aanmaken op GitHub of mijn Discord joinen.
         </div>
-
-    </div>
-    <div>
         <div class="disclaimer">
             Deze app is uitsluitend voor persoonlijk gebruik. Misbruik om je voor te doen als BOA of opsporingsambtenaar is strafbaar volgens Artikel 196 WvSr.
         </div>
-
     </div>
 
+    <!-- JavaScript voor het toggelen van het zijmenu -->
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var logo = document.querySelector('.menupic'); // Selecteer het logo
 
-    <!-- Herhaal voor elke categorie -->
-</div>
-
-<script>
-function toggleMenu() {
-    var menu = document.getElementById("sideMenu");
-    var logo = document.querySelector('.menupic'); // Selecteer het logo
-
-    if (menu.style.width === "250px") {
-        menu.style.width = "0";
-        logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
-    } else {
-        menu.style.width = "250px";
-        logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
-    }
-}
-
-</script>
+            if (menu.style.width === "250px") {
+                menu.style.width = "0";
+                logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+            } else {
+                menu.style.width = "250px";
+                logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+            }
+        }
+    </script>
 </body>
 </html>
