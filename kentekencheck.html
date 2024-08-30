@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenteken Informatie Opvragen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003e9b;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #26364e;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            color: white;
+        }
+        h2 {
+            color: #ffffff;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Kenteken Informatie Opvragen</h2>
+        <form id="kentekenForm">
+            <label for="kenteken">Voer Kenteken in:</label>
+            <input type="text" id="kenteken" name="kenteken" required placeholder="Bijv. GKG65P">
+            <button type="submit" class="submit-button">Zoek Informatie</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h3>Kenteken Informatie</h3>
+            <p><strong>Kenteken:</strong> <span id="resultKenteken"></span></p>
+            <p><strong>Merk:</strong> <span id="resultMerk"></span></p>
+            <p><strong>Model:</strong> <span id="resultModel"></span></p>
+            <p><strong>Kleur:</strong> <span id="resultKleur"></span></p>
+            <p><strong>Datum Tenaamstelling:</strong> <span id="resultDatumTenaamstelling"></span></p>
+            <!-- Nieuwe gegevens -->
+            <p><strong>Bruto BPM:</strong> <span id="resultBrutoBPM"></span></p>
+            <p><strong>Aantal Zitplaatsen:</strong> <span id="resultZitplaatsen"></span></p>
+            <p><strong>Cilinderinhoud:</strong> <span id="resultCilinderinhoud"></span> cc</p>
+            <p><strong>Massa Ledig Voertuig:</strong> <span id="resultMassaLedigVoertuig"></span> kg</p>
+            <p><strong>Toegestane Maximum Massa Voertuig:</strong> <span id="resultMaxMassaVoertuig"></span> kg</p>
+            <p><strong>Maximum Massa Trekken Geremd:</strong> <span id="resultMaxTrekkenGeremd"></span> kg</p>
+            <!-- Nieuw veld voor plaats chassisnummer -->
+            <p><strong>Plaats Chassisnummer:</strong> <span id="resultPlaatsChassisnummer"></span></p>
+            <!-- Nieuwe velden toegevoegd -->
+            <p><strong>Gestolen:</strong> <span id="resultGestolen"></span></p>
+            <p><strong>Geëxporteerd:</strong> <span id="resultGexporteerd"></span></p>
+            <p><strong>WAM Verzekerd:</strong> <span id="resultWamVerzekerd"></span></p>
+            <p><strong>Verbod voor Rijden op de Weg:</strong> <span id="resultVerbodRijden"></span></p>
+            <p><strong>Tenaamstellen Mogelijk:</strong> <span id="resultTenaamstellenMogelijk"></span></p>
+            <p><strong>Vervaldatum APK:</strong> <span id="resultVervaldatumAPK"></span></p>
+        </div>
+        
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <script>
+      document.getElementById('kentekenForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const kenteken = document.getElementById('kenteken').value.replace(/-/g, '').toUpperCase();
+    const apiURL = `https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=${encodeURIComponent(kenteken)}`;
+
+    fetch(apiURL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Netwerkfout: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.length > 0) {
+                const voertuig = data[0];
+                document.getElementById('resultKenteken').textContent = voertuig.kenteken || 'Onbekend';
+                document.getElementById('resultMerk').textContent = voertuig.merk || 'Onbekend';
+                document.getElementById('resultModel').textContent = voertuig.handelsbenaming || 'Onbekend';
+                document.getElementById('resultKleur').textContent = voertuig.eerste_kleur || 'Onbekend';
+                document.getElementById('resultDatumTenaamstelling').textContent = voertuig.datum_tenaamstelling || 'Onbekend';
+                
+                // Nieuwe gegevens invullen
+                document.getElementById('resultBrutoBPM').textContent = voertuig.bruto_bpm || 'Onbekend';
+                document.getElementById('resultZitplaatsen').textContent = voertuig.aantal_zitplaatsen || 'Onbekend';
+                document.getElementById('resultCilinderinhoud').textContent = voertuig.cilinderinhoud || 'Onbekend';
+                document.getElementById('resultMassaLedigVoertuig').textContent = voertuig.massa_ledig_voertuig || 'Onbekend';
+                document.getElementById('resultMaxMassaVoertuig').textContent = voertuig.toegestane_maximum_massa_voertuig || 'Onbekend';
+                document.getElementById('resultMaxTrekkenGeremd').textContent = voertuig.maximum_trekken_massa_geremd || 'Onbekend';
+                document.getElementById('resultPlaatsChassisnummer').textContent = voertuig.plaats_chassisnummer || 'Onbekend';
+
+                // Nieuwe velden invullen
+                document.getElementById('resultGestolen').textContent = voertuig.gestolen ? 'Ja' : 'Nee';
+                document.getElementById('resultGexporteerd').textContent = voertuig.export_indicator === 'ja' ? 'Ja' : 'Nee';
+                document.getElementById('resultWamVerzekerd').textContent = voertuig.wam_verzekerd === 'ja' ? 'Ja' : 'Nee';
+                document.getElementById('resultVerbodRijden').textContent = voertuig.verbod_voor_rijden_op_de_weg ? 'Ja' : 'Nee';
+                document.getElementById('resultTenaamstellenMogelijk').textContent = voertuig.tenaamstellen_mogelijk === 'ja' ? 'Ja' : 'Nee';
+                document.getElementById('resultVervaldatumAPK').textContent = voertuig.vervaldatum_apk_dt || 'Onbekend';
+
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('error-message').textContent = '';
+            } else {
+                document.getElementById('error-message').textContent = 'Geen informatie gevonden voor dit kenteken.';
+                document.getElementById('result').style.display = 'none';
+            }
+        })
+        .catch(error => {
+            document.getElementById('error-message').textContent = 'Er is een fout opgetreden: ' + error;
+            document.getElementById('result').style.display = 'none';
+        });
+});
+
+    </script>
+
+</body>
+</html>
