@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boete Registratie</title>
+    <style>
+        /* Algemene instellingen */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003e9b;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #26364e;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #ffffff;
+            border-bottom: 2px solid #26364e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+        h3 {
+            font-size: 18px;
+            color: #ffffff;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+        }
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Boete Registratie</h2>
+        <form id="boeteForm">
+            <h3>Gegevens Handhaver</h3>
+            <label for="naam_handhaver">Naam Handhaver:</label>
+            <input type="text" id="naam_handhaver" name="naam_handhaver" required>
+
+            <label for="badge_handhaver">Badge Nummer:</label>
+            <input type="text" id="badge_handhaver" name="badge_handhaver" required>
+
+            <h3>Gegevens Overtreder</h3>
+            <label for="naam_overtreder">Naam Overtreder:</label>
+            <input type="text" id="naam_overtreder" name="naam_overtreder" required>
+
+            <label for="adres_overtreder">Adres Overtreder:</label>
+            <input type="text" id="adres_overtreder" name="adres_overtreder" required>
+
+            <h3>Details Boete</h3>
+            <label for="boete_type">Boetetype:</label>
+            <select id="boete_type" name="boete_type" onchange="updateBoeteDetails()" required>
+                <option value="Te hard rijden|Artikel 5|140">Te hard rijden - Artikel 5 - €140</option>
+                <option value="Rijden door rood licht|Artikel 61|250">Rijden door rood licht - Artikel 61 - €250</option>
+                <option value="Parkeren op verboden plaats|Artikel 62|95">Parkeren op verboden plaats - Artikel 62 - €95</option>
+                <option value="Niet dragen van veiligheidsgordel|Artikel 59|150">Niet dragen van veiligheidsgordel - Artikel 59 - €150</option>
+                <option value="Gebruik van mobiele telefoon tijdens het rijden|Artikel 61a|230">Gebruik van mobiele telefoon tijdens het rijden - Artikel 61a - €230</option>
+                <!-- Voeg hier meer boetesoorten toe -->
+            </select>
+
+            <label for="artikel_nummer">Artikel Nummer:</label>
+            <input type="text" id="artikel_nummer" name="artikel_nummer" readonly>
+
+            <label for="boete_bedrag">Boetebedrag (€):</label>
+            <input type="number" id="boete_bedrag" name="boete_bedrag" readonly>
+
+            <label for="datum_boete">Datum van Boete:</label>
+            <input type="date" id="datum_boete" name="datum_boete" required>
+
+            <label for="opmerkingen">Opmerkingen:</label>
+            <textarea id="opmerkingen" name="opmerkingen" rows="4"></textarea>
+
+            <button type="submit" class="submit-button">Verstuur Boete</button>
+        </form>
+    </div>
+
+    <script>
+        function updateBoeteDetails() {
+            const boeteInfo = document.getElementById('boete_type').value.split('|');
+            const boeteType = boeteInfo[0];
+            const artikelNummer = boeteInfo[1];
+            const boeteBedrag = parseFloat(boeteInfo[2]) + 9; // €9 administratiekosten toevoegen
+
+            document.getElementById('artikel_nummer').value = artikelNummer;
+            document.getElementById('boete_bedrag').value = boeteBedrag;
+        }
+
+        document.getElementById('boeteForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const webhookURL = "https://discord.com/api/webhooks/1279128353168953386/r8mPWR6VKpI7ZSxR_5y37Dni7AsUeKBhdM6hIeqbm4SJuJwg8zL-zQRM19--ZqF6WZU6"; // Voeg hier je Discord Webhook URL toe
+
+            const naamHandhaver = document.getElementById('naam_handhaver').value;
+            const badgeHandhaver = document.getElementById('badge_handhaver').value;
+            const naamOvertreder = document.getElementById('naam_overtreder').value;
+            const adresOvertreder = document.getElementById('adres_overtreder').value;
+            const boeteType = document.getElementById('boete_type').value.split('|')[0];
+            const artikelNummer = document.getElementById('artikel_nummer').value;
+            const boeteBedrag = document.getElementById('boete_bedrag').value;
+            const datumBoete = document.getElementById('datum_boete').value;
+            const opmerkingen = document.getElementById('opmerkingen').value;
+
+            const message = {
+                "content": `**Boete Registratie**\n\n**Gegevens Handhaver**\nNaam: ${naamHandhaver}\nBadge Nummer: ${badgeHandhaver}\n\n**Gegevens Overtreder**\nNaam: ${naamOvertreder}\nAdres: ${adresOvertreder}\n\n**Details Boete**\nBoetetype: ${boeteType}\nArtikel Nummer: ${artikelNummer}\nBoetebedrag: €${boeteBedrag}\nDatum: ${datumBoete}\n\n**Opmerkingen**\n${opmerkingen}`
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => {
+                if(response.ok) {
+                    alert('Boete succesvol verstuurd naar Discord!');
+                } else {
+                    alert('Er is iets misgegaan met het versturen van de boete.');
+                }
+            })
+            .catch(error => {
+                alert('Er is een fout opgetreden: ' + error);
+            });
+        });
+
+        // Initialiseer het formulier met de standaard geselecteerde boete-informatie
+        updateBoeteDetails();
+    </script>
+
+</body>
+</html>
