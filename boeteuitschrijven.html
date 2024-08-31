@@ -3,73 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boete Registratie</title>
+    <title>Proces-Verbaal Formulier</title>
     <style>
-        /* Algemene instellingen */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #003e9b;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background-color: #26364e;
-            max-width: 600px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #003e9b;
+}
+
+        .form-container {
+            width: 90%;
+            max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            background-color: #26364e;
+            border: 1px solid #26364e;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            font-size: 18px;
-            color: #ffffff;
-            border-bottom: 2px solid #26364e;
-            padding-bottom: 10px;
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 24px;
             margin-bottom: 20px;
-            margin-top: 30px;
         }
-        h3 {
-            font-size: 18px;
-            color: #ffffff;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            margin-top: 30px;
+
+        .section {
+            border-top: 2px solid #ffffff;
+            padding-top: 20px;
+            margin-top: 20px;
         }
-        label {
+
+        .row {
+            display: flex;
+            color: #fff;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .row label {
+            flex: 1;
             font-weight: bold;
-            display: block;
-            margin: 10px 0 5px;
-            color: #ffffff;
         }
-        input, select, textarea {
+
+        .row input, .row textarea, .row select {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #ccc;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ffffff;
-            border-radius: 4px;
-            font-size: 16px;
-            background-color: #f9f9f9;
-            box-sizing: border-box;
         }
-        .submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+
+        .row input[type="checkbox"] {
+            width: auto;
+        }
+
+        textarea {
+            height: 60px;
+            resize: vertical;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease;
-            display: block;
-            width: 100%;
-            box-sizing: border-box;
+            margin-top: 20px;
         }
-        .submit-button:hover {
-            background-color: #45a049;
+
+        button:hover {
+            background-color: #0056b3;
         }
-                        /* Stijlen voor het hoofdmenu */
-                        .headmenu {
+                /* Stijlen voor het hoofdmenu */
+                .headmenu {
             padding: 10px 15px;
             background-color: #002e74;
             color: white;
@@ -120,136 +130,241 @@
             height: auto;
             transition: transform 0.5s ease;
         }
+
     </style>
 </head>
 <body>
 
-<!-- Hoofdmenu -->
-<div class="headmenu">
-    <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
-    HTV-GMS
-</div>
+     <!-- Hoofdmenu -->
+     <div class="headmenu">
+        <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        HTV-GMS
+    </div>
 
-<!-- Zijmenu -->
-<div id="sideMenu" class="side-nav">
-    <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
-    <!-- Menu inhoud -->
-    <a href="Maker.html">Maker</a>
-    <a href="Informatie.html">Informatie</a>
-    <a href="pagina3.html">Link 3</a>
-    <a href="index.html">Main Menu</a>
-</div>
+    <!-- Zijmenu -->
+    <div id="sideMenu" class="side-nav">
+        <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        <!-- Menu inhoud -->
+        <a href="Maker.html">Maker</a>
+        <a href="Informatie.html">Informatie</a>
+        <a href="pagina3.html">Link 3</a>
+        <a href="index.html">Main Menu</a>
+    </div>
 
-    <div class="container">
-        <h2>Boete Registratie</h2>
-        <form id="boeteForm">
-            <h3>Gegevens Handhaver</h3>
-            <label for="naam_handhaver">Naam Handhaver:</label>
-            <input type="text" id="naam_handhaver" name="naam_handhaver" required>
 
-            <label for="badge_handhaver">Badge Nummer:</label>
-            <input type="text" id="badge_handhaver" name="badge_handhaver" required>
+    <div class="form-container">
+        <form id="proces-verbaal-form">
+            <h1>Proces-Verbaal</h1>
 
-            <h3>Gegevens Overtreder</h3>
-            <label for="naam_overtreder">Naam Overtreder:</label>
-            <input type="text" id="naam_overtreder" name="naam_overtreder" required>
+            <!-- Sectie 1: Basisinformatie -->
+            <div class="section">
+                <div class="row">
+                    <label for="opsporingsinstantie">Naam opsporingsinstantie:</label>
+                    <input type="text" id="opsporingsinstantie" name="opsporingsinstantie">
+                </div>
+                <div class="row">
+                    <label>Kennisgeving van:</label>
+                    <input type="checkbox" id="strafbeschikking" name="kennisgeving" value="strafbeschikking">
+                    <label for="strafbeschikking">Strafbeschikking</label>
+                    <input type="checkbox" id="bekeuring" name="kennisgeving" value="bekeuring">
+                    <label for="bekeuring">Bekeuring</label>
+                    <input type="checkbox" id="beschikking" name="kennisgeving" value="beschikking">
+                    <label for="beschikking">Beschikking</label>
+                    <!-- Andere opties indien nodig -->
+                </div>
+                <div class="row">
+                    <label for="procesverbaalnummer">Proces-Verbaal Nummer:</label>
+                    <input type="text" id="procesverbaalnummer" name="procesverbaalnummer">
+                </div>
+                <div class="row">
+                    <label for="zaaknummer">Zaak nr. PSH-TM:</label>
+                    <input type="text" id="zaaknummer" name="zaaknummer">
+                </div>
+            </div>
 
-            <label for="adres_overtreder">Adres Overtreder:</label>
-            <input type="text" id="adres_overtreder" name="adres_overtreder" required>
+            <!-- Sectie 2: Datum, Tijd, en Plaats -->
+            <div class="section">
+                <div class="row">
+                    <label for="datum">Datum:</label>
+                    <input type="date" id="datum" name="datum">
+                </div>
+                <div class="row">
+                    <label for="tijdstip">Tijdstip:</label>
+                    <input type="time" id="tijdstip" name="tijdstip">
+                </div>
+                <div class="row">
+                    <label for="plaats">Plaats:</label>
+                    <input type="text" id="plaats" name="plaats">
+                </div>
+            </div>
 
-            <h3>Details Boete</h3>
-            <label for="boete_type">Boetetype:</label>
-            <select id="boete_type" name="boete_type" onchange="updateBoeteDetails()" required>
-                <option value="Te hard rijden|Artikel 5|140">Te hard rijden - Artikel 5 - €140</option>
-                <option value="Rijden door rood licht|Artikel 61|250">Rijden door rood licht - Artikel 61 - €250</option>
-                <option value="Parkeren op verboden plaats|Artikel 62|95">Parkeren op verboden plaats - Artikel 62 - €95</option>
-                <option value="Niet dragen van veiligheidsgordel|Artikel 59|150">Niet dragen van veiligheidsgordel - Artikel 59 - €150</option>
-                <option value="Gebruik van mobiele telefoon tijdens het rijden|Artikel 61a|230">Gebruik van mobiele telefoon tijdens het rijden - Artikel 61a - €230</option>
-                <!-- Voeg hier meer boetesoorten toe -->
-            </select>
+            <!-- Sectie 3: Wegcode en Verkeersinformatie -->
+            <div class="section">
+                <div class="row">
+                    <label for="wegcode">Wegcode:</label>
+                    <input type="text" id="wegcode" name="wegcode">
+                </div>
+                <div class="row">
+                    <label for="hmpaal">HM-paal:</label>
+                    <input type="text" id="hmpaal" name="hmpaal">
+                </div>
+                <div class="row">
+                    <label for="gemeente">Gemeente:</label>
+                    <input type="text" id="gemeente" name="gemeente">
+                </div>
+                <div class="row">
+                    <label for="soortweg">Soort weg/vaartuig:</label>
+                    <input type="text" id="soortweg" name="soortweg">
+                </div>
+            </div>
 
-            <label for="artikel_nummer">Artikel Nummer:</label>
-            <input type="text" id="artikel_nummer" name="artikel_nummer" readonly>
+            <!-- Sectie 4: Voertuiggegevens -->
+            <div class="section">
+                <div class="row">
+                    <label for="merk">Merk:</label>
+                    <input type="text" id="merk" name="merk">
+                </div>
+                <div class="row">
+                    <label for="type">Type:</label>
+                    <input type="text" id="type" name="type">
+                </div>
+                <div class="row">
+                    <label for="kleur">Kleur:</label>
+                    <input type="text" id="kleur" name="kleur">
+                </div>
+                <div class="row">
+                    <label for="land">Land:</label>
+                    <input type="text" id="land" name="land">
+                </div>
+                <div class="row">
+                    <label for="kenteken">Kenteken/registratieteken:</label>
+                    <input type="text" id="kenteken" name="kenteken">
+                </div>
+            </div>
 
-            <label for="boete_bedrag">Boetebedrag (€):</label>
-            <input type="number" id="boete_bedrag" name="boete_bedrag" readonly>
+            <!-- Sectie 5: Overtredingsinformatie -->
+            <div class="section">
+                <div class="row">
+                    <label for="categorie">Categorie:</label>
+                    <input type="text" id="categorie" name="categorie">
+                </div>
+                <div class="row">
+                    <label for="nummer">Nummer:</label>
+                    <input type="text" id="nummer" name="nummer">
+                </div>
+                <div class="row">
+                    <label for="gedrag">Plaats/gedrag/overtreding:</label>
+                    <textarea id="gedrag" name="gedrag"></textarea>
+                </div>
+            </div>
 
-            <label for="datum_boete">Datum van Boete:</label>
-            <input type="date" id="datum_boete" name="datum_boete" required>
+            <!-- Sectie 6: Verklaring verdachte -->
+            <div class="section">
+                <div class="row">
+                    <label for="verklaring">Verklaring verdachte:</label>
+                    <textarea id="verklaring" name="verklaring"></textarea>
+                </div>
+                <div class="row">
+                    <label for="recht">Recht op:</label>
+                    <input type="checkbox" id="rechtbijstand" name="recht" value="rechtbijstand">
+                    <label for="rechtbijstand">Recht op rechtbijstand</label>
+                    <input type="checkbox" id="vertaling" name="recht" value="vertaling">
+                    <label for="vertaling">Recht op vertolking en vertaling</label>
+                </div>
+            </div>
 
-            <label for="opmerkingen">Opmerkingen:</label>
-            <textarea id="opmerkingen" name="opmerkingen" rows="4"></textarea>
+            <!-- Sectie 7: Identificatiegegevens -->
+            <div class="section">
+                <div class="row">
+                    <label for="document">Document aangevinkt:</label>
+                    <input type="checkbox" id="paspoort" name="document" value="paspoort">
+                    <label for="paspoort">Paspoort</label>
+                    <input type="checkbox" id="idkaart" name="document" value="idkaart">
+                    <label for="idkaart">ID Kaart</label>
+                    <input type="checkbox" id="rijbewijs" name="document" value="rijbewijs">
+                    <label for="rijbewijs">Rijbewijs</label>
+                </div>
+                <div class="row">
+                    <label for="documentnummer">Nummer document:</label>
+                    <input type="text" id="documentnummer" name="documentnummer">
+                </div>
+                <div class="row">
+                    <label for="naam">Naam:</label>
+                    <input type="text" id="naam" name="naam">
+                </div>
+                <div class="row">
+                    <label for="geboortedatum">Geboortedatum:</label>
+                    <input type="date" id="geboortedatum" name="geboortedatum">
+                </div>
+                <div class="row">
+                    <label for="adres">Adres:</label>
+                    <input type="text" id="adres" name="adres">
+                </div>
+            </div>
 
-            <button type="submit" class="submit-button">Verstuur Boete</button>
+            <!-- Ondertekening -->
+            <div class="section">
+                <div class="row">
+                    <label for="handtekening">Handtekening:</label>
+                    <input type="text" id="handtekening" name="handtekening">
+                </div>
+                <div class="row">
+                    <label for="datumondertekening">Datum ondertekening:</label>
+                    <input type="date" id="datumondertekening" name="datumondertekening">
+                </div>
+            </div>
+
+            <button type="button" onclick="submitToDiscord()">Verzenden naar Discord</button>
         </form>
     </div>
 
     <script>
-        function updateBoeteDetails() {
-            const boeteInfo = document.getElementById('boete_type').value.split('|');
-            const boeteType = boeteInfo[0];
-            const artikelNummer = boeteInfo[1];
-            const boeteBedrag = parseFloat(boeteInfo[2]) + 9; // €9 administratiekosten toevoegen
+        function submitToDiscord() {
+            const webhookUrl = "https://discord.com/api/webhooks/1279128353168953386/r8mPWR6VKpI7ZSxR_5y37Dni7AsUeKBhdM6hIeqbm4SJuJwg8zL-zQRM19--ZqF6WZU6"; // Voeg hier je Webhook URL toe
 
-            document.getElementById('artikel_nummer').value = artikelNummer;
-            document.getElementById('boete_bedrag').value = boeteBedrag;
-        }
+            // Formuliergegevens ophalen
+            const formData = new FormData(document.getElementById('proces-verbaal-form'));
+            let messageContent = '';
 
-        document.getElementById('boeteForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+            formData.forEach((value, key) => {
+                messageContent += `${key}: ${value}\n`;
+            });
 
-            const webhookURL = "https://discord.com/api/webhooks/1279128353168953386/r8mPWR6VKpI7ZSxR_5y37Dni7AsUeKBhdM6hIeqbm4SJuJwg8zL-zQRM19--ZqF6WZU6"; // Voeg hier je Discord Webhook URL toe
-
-            const naamHandhaver = document.getElementById('naam_handhaver').value;
-            const badgeHandhaver = document.getElementById('badge_handhaver').value;
-            const naamOvertreder = document.getElementById('naam_overtreder').value;
-            const adresOvertreder = document.getElementById('adres_overtreder').value;
-            const boeteType = document.getElementById('boete_type').value.split('|')[0];
-            const artikelNummer = document.getElementById('artikel_nummer').value;
-            const boeteBedrag = document.getElementById('boete_bedrag').value;
-            const datumBoete = document.getElementById('datum_boete').value;
-            const opmerkingen = document.getElementById('opmerkingen').value;
-
-            const message = {
-                "content": `**Boete Registratie**\n\n**Gegevens Handhaver**\nNaam: ${naamHandhaver}\nBadge Nummer: ${badgeHandhaver}\n\n**Gegevens Overtreder**\nNaam: ${naamOvertreder}\nAdres: ${adresOvertreder}\n\n**Details Boete**\nBoetetype: ${boeteType}\nArtikel Nummer: ${artikelNummer}\nBoetebedrag: €${boeteBedrag}\nDatum: ${datumBoete}\n\n**Opmerkingen**\n${opmerkingen}`
-            };
-
-            fetch(webhookURL, {
+            // Verzend de gegevens naar de Discord Webhook
+            fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(message)
-            })
-            .then(response => {
-                if(response.ok) {
-                    alert('Boete succesvol verstuurd naar Discord!');
+                body: JSON.stringify({
+                    content: messageContent
+                })
+            }).then(response => {
+                if (response.ok) {
+                    alert('Formulier succesvol verzonden naar Discord!');
                 } else {
-                    alert('Er is iets misgegaan met het versturen van de boete.');
+                    alert('Er is iets misgegaan bij het verzenden van het formulier.');
                 }
-            })
-            .catch(error => {
-                alert('Er is een fout opgetreden: ' + error);
+            }).catch(error => {
+                console.error('Fout bij het verzenden:', error);
+                alert('Er is een fout opgetreden bij het verzenden van het formulier.');
             });
-        });
-
-        // Initialiseer het formulier met de standaard geselecteerde boete-informatie
-        updateBoeteDetails();
-    </script>
-<script>
-    // Functie om het zijmenu te toggelen
-    function toggleMenu() {
-        var menu = document.getElementById("sideMenu");
-        var logo = document.querySelector('.menupic');
-
-        if (menu.style.width === "250px") {
-            menu.style.width = "0";
-            logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
-        } else {
-            menu.style.width = "250px";
-            logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
         }
-    }
-</script>
+    </script>
+    <script>
+        // Functie om het zijmenu te toggelen
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var logo = document.querySelector('.menupic');
+    
+            if (menu.style.width === "250px") {
+                menu.style.width = "0";
+                logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+            } else {
+                menu.style.width = "250px";
+                logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+            }
+        }
+    </script>
 </body>
 </html>
