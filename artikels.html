@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wetsartikelen Zoeken</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003e9b;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #26364e;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            color: white;
+            box-sizing: border-box; /* Zorgt ervoor dat padding en border worden meegerekend in de totale breedte */
+        }
+        h2 {
+            color: #ffffff;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+        input[type="text"] {
+    width: 78%; /* Maak ruimte voor de knop */
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px; /* Alleen linkerhoek afgerond */
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.submit-button {
+    width: 20%; /* Breedte aangepast om naast de input te passen */
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+    border-left: none; /* Geen rand aan de linkerkant, om samen te voegen met de input */
+    border-radius: 0 4px 4px 0; /* Alleen rechterhoek afgerond */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0;
+    box-sizing: border-box;
+}
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+        .headmenu {
+            padding: 10px 15px;
+            background-color: #002e74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .menupic {
+            width: 30px;
+            margin-right: 10px;
+            transition: transform 0.5s ease;
+        }
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .side-nav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .side-nav a:hover {
+            color: #f1f1f1;
+        }
+        .menupic2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hoofdmenu -->
+    <div class="headmenu">
+        <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        HTV-GMS
+    </div>
+
+    <!-- Zijmenu -->
+    <div id="sideMenu" class="side-nav">
+        <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        <!-- Menu inhoud -->
+        <a href="Maker.html">Maker</a>
+        <a href="Informatie.html">Informatie</a>
+        <a href="pagina3.html">Link 3</a>
+        <a href="index.html">Main Menu</a>
+    </div>
+    <div class="container">
+        <h2>Wetsartikelen Zoeken</h2>
+        <form id="wetsartikelForm">
+            <label for="wetsartikel">Voer zoekterm in (artikel of omschrijving):</label>
+            <input type="text" id="wetsartikel" name="wetsartikel" required placeholder="Bijv. Artikel 5 of verkeersveiligheid">
+            <button type="submit" class="submit-button">Zoek Wetsartikel</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h3>Gevonden Wetsartikelen</h3>
+            <div id="resultContent"></div>
+        </div>
+        
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <script>
+        // Statische lijst van wetsartikelen
+        const wetsartikelen = [
+            {
+                artikel: "artikel 70 | Wet personenvervoer",
+                omschrijving: "Het is verboden zonder hiervoor geldig vervoerbewijs gebruik te maken van het openbaar vervoer."
+            },
+            {
+                artikel: "Artikel 71 | Wet personenvervoer",
+                omschrijving: "verbiedt onder meer het misbruiken van een vervoerbewijs."
+            },
+            {
+                artikel: "Artikel 2:1 Samenscholing en ongeregeldheden | Openbare orde",
+                omschrijving: `
+                    1. Het is verboden op een openbare plaats deel te nemen aan een samenscholing, onnodig op te dringen of door uitdagend gedrag aanleiding te geven tot ongeregeldheden danwel enig voorwerp of stof te vervoeren of bij zich te hebben die aanleiding kunnen geven tot ongeregeldheden.<br>
+                    <br>
+                    2. Hij die op een openbare plaats aanwezig is bij een voorval waardoor ongeregeldheden ontstaan of dreigen te ontstaan, of bij een tot toeloop van publiek aanleiding gevende gebeurtenis waardoor ongeregeldheden ontstaan of dreigen te ontstaan, dan wel zich bevindt in of aanwezig is bij een samenscholing, is verplicht op bevel van een ambtenaar van politie zijn weg te vervolgen of zich in de door hem aangewezen richting te verwijderen.<br>
+                    <br>
+                    3. Het is verboden zich te begeven of te bevinden op openbare plaatsen die door of vanwege het bevoegd gezag in het belang van de openbare veiligheid of ter voorkoming van wanordelijkheden zijn afgezet.<br>
+                    <br>
+                    4. De burgemeester kan ontheffing verlenen van het in het derde lid gestelde verbod.<br>
+                    <br>
+                    5. Het bepaalde in de voorgaande leden geldt niet voor betogingen, vergaderingen en godsdienstige en levensbeschouwelijke samenkomsten als bedoeld in de Wet openbare manifestaties.
+                `
+            },
+            {
+                artikel: "Artikel 2:2 Verstoring openbare orde | Openbare orde",
+                omschrijving: `
+                    1. Het is verboden op een openbare plaats en in een openbare inrichting op enigerlei wijze de orde te verstoren, personen lastig te vallen of te vechten.<br>
+                    <br>
+                    2. Het in het eerste lid gestelde verbod geldt niet voor zover artikel 424 of 426 bis Wetboek van Strafrecht van toepassing is.<br>
+                    `
+            },
+            // Voeg meer artikelen toe zoals nodig
+        ];
+
+        document.getElementById('wetsartikelForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const zoekTerm = document.getElementById('wetsartikel').value.trim().toLowerCase();
+            const resultaten = wetsartikelen.filter(artikel =>
+                artikel.artikel.toLowerCase().includes(zoekTerm) ||
+                artikel.omschrijving.toLowerCase().includes(zoekTerm)
+            );
+
+            if (resultaten.length > 0) {
+                let resultHtml = '';
+                resultaten.forEach(resultaat => {
+                    resultHtml += `<p><strong>Artikel:</strong> ${resultaat.artikel}</p>`;
+                    resultHtml += `<p><strong>Omschrijving:</strong> ${resultaat.omschrijving}</p>`;
+                    resultHtml += `<hr>`;
+                });
+                document.getElementById('resultContent').innerHTML = resultHtml;
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('error-message').textContent = '';
+            } else {
+                document.getElementById('error-message').textContent = 'Geen informatie gevonden voor deze zoekterm.';
+                document.getElementById('result').style.display = 'none';
+            }
+        });
+
+        // Functie om het zijmenu te toggelen
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var logo = document.querySelector('.menupic');
+
+            if (menu.style.width === "250px") {
+                menu.style.width = "0";
+                logo.style.transform = "rotate(0deg)"; // Logo terugdraaien
+            } else {
+                menu.style.width = "250px";
+                logo.style.transform = "rotate(90deg)"; // Logo 90 graden draaien
+            }
+        }
+    </script>
+</body>
+</html>
