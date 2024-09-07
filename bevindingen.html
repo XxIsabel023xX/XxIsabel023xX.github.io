@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bevindingen Formulier</title>
+    <style>
+        /* Algemene instellingen */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #003e9b;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #26364e;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .note {
+            font-style: italic;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        /* Stijlen voor het hoofdmenu */
+        .headmenu {
+            padding: 10px 15px;
+            background-color: #002e74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .menupic {
+            width: 30px;
+            margin-right: 10px;
+            transition: transform 0.5s ease;
+        }
+
+        /* Stijlen voor het zijmenu */
+        .side-nav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .side-nav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-nav a:hover {
+            color: #f1f1f1;
+        }
+
+        .menupic2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hoofdmenu -->
+    <div class="headmenu">
+        <img class="menupic" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        HTV-GMS
+    </div>
+
+    <!-- Zijmenu -->
+    <div id="sideMenu" class="side-nav">
+        <img class="menupic2" src="menupic.png" alt="Menupic" onclick="toggleMenu()">
+        <!-- Menu inhoud -->
+        <a href="index.html">Main Menu</a>
+        <a href="Maker.html">Maker</a>
+        <a href="Informatie.html">Informatie</a>
+        <a href="voorwaarden.html">Gebruikers Voorwaarden</a>
+    </div>
+
+    <div class="container">
+        <h2>Bevindingen en Foto's Uploaden</h2>
+        <form id="bevindingenForm" enctype="multipart/form-data">
+            <label for="titel">Titel:</label>
+            <input type="text" id="titel" name="titel" placeholder="Voer een titel in..." required>
+
+            <label for="tijd">Tijd van rapportage:</label>
+            <input type="text" id="tijd" name="tijd" readonly>
+
+            <label for="bevindingen">Bevindingen:</label>
+            <textarea id="bevindingen" name="bevindingen" rows="5" placeholder="Voer hier uw bevindingen in..." required></textarea>
+
+            <label for="foto">Upload Foto's:</label>
+            <input type="file" id="foto" name="foto" accept="image/*" multiple required>
+
+            <p class="note">De bevindingen, tijd en foto's worden verstuurd naar Discord.</p>
+
+            <button type="submit" class="submit-button">Verzend naar Discord</button>
+        </form>
+    </div>
+
+    <script>
+        // Functie om het huidige tijdstip in te vullen
+        function setTime() {
+            const tijdVeld = document.getElementById('tijd');
+            const huidigeDatum = new Date();
+            const tijdString = huidigeDatum.toLocaleString('nl-NL', {
+                year: 'numeric', month: 'numeric', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            tijdVeld.value = tijdString;
+        }
+
+        // Zet de tijd bij het laden van de pagina
+        window.onload = setTime;
+
+        document.getElementById('bevindingenForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const webhookURL = "https://discord.com/api/webhooks/1281974885505044593/avFmXYi4bOj8zMP_SmeBMS3iOFFVjMx8GMp__wfXSEu-lO5DHtos1j3MyARwRgyESyWQ"; // Voeg hier je Discord Webhook URL toe
+
+            const titel = document.getElementById('titel').value;
+            const tijd = document.getElementById('tijd').value;
+            const bevindingen = document.getElementById('bevindingen').value;
+            const files = document.getElementById('foto').files;
+
+            const formData = new FormData();
+            formData.append('content', `**Titel:** ${titel}\n**Tijd:** ${tijd}\n**Bevindingen:**\n${bevindingen}`);
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('file' + i, files[i]);
+            }
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('Bevindingen en foto\'s succesvol verzonden naar Discord!');
+                } else {
+                    alert('Er is iets misgegaan bij het verzenden van de bevindingen.');
+                }
+            } catch (error) {
+                console.error('Fout bij het verzenden:', error);
+                alert('Er is een fout opgetreden bij het verzenden van de bevindingen.');
+            }
+        });
+
+        // Functie om het zijmenu te toggelen
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var logo = document.querySelector('.menupic');
+
+            if (menu.style.width === "250px") {
+                menu.style.width = "0";
+                logo.style.transform = "rotate(0deg)";
+            } else {
+                menu.style.width = "250px";
+                logo.style.transform = "rotate(90deg)";
+            }
+        }
+    </script>
+</body>
+</html>
