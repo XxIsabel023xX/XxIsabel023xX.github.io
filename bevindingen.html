@@ -151,6 +151,9 @@
             <label for="titel">Titel:</label>
             <input type="text" id="titel" name="titel" placeholder="Voer een titel in..." required>
 
+            <label for="locatie">Locatie:</label>
+            <input type="text" id="locatie" name="locatie" placeholder="Voer een locatie in..." required>
+
             <label for="tijd">Tijd van rapportage:</label>
             <input type="text" id="tijd" name="tijd" readonly>
 
@@ -162,7 +165,7 @@
 
             <p class="note">De bevindingen, tijd en foto's worden verstuurd naar Discord.</p>
 
-            <button type="submit" class="submit-button">Verzend naar Discord</button>
+            <button type="submit" class="submit-button">Invoeren</button>
         </form>
     </div>
 
@@ -178,8 +181,46 @@
             tijdVeld.value = tijdString;
         }
 
-        // Zet de tijd bij het laden van de pagina
-        window.onload = setTime;
+        // Functie om de locatie te achterhalen en het adres te verkrijgen
+        function setLocation() {
+            const locatieVeld = document.getElementById('locatie');
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async function (position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Gebruik de OpenCage API om de straatnaam op te halen
+                    const apiKey = '4d1acdbe732f4b75abcd50e3cc5843e5';  // Vervang met je eigen OpenCage API-sleutel
+                    const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}&language=nl&pretty=1`;
+
+                    try {
+                        const response = await fetch(apiUrl);
+                        const data = await response.json();
+
+                        if (data.results.length > 0) {
+                            const straat = data.results[0].components.road || 'Straat niet gevonden';
+                            locatieVeld.value = straat;
+                        } else {
+                            locatieVeld.value = 'Locatie niet gevonden';
+                        }
+                    } catch (error) {
+                        console.error('Fout bij het ophalen van de locatie:', error);
+                        locatieVeld.value = 'Fout bij locatiebepaling';
+                    }
+                }, function () {
+                    alert('Kon locatie niet ophalen.');
+                });
+            } else {
+                alert('Geolocatie wordt niet ondersteund door uw browser.');
+            }
+        }
+
+        // Zet de tijd en locatie bij het laden van de pagina
+        window.onload = function() {
+            setTime();
+            setLocation();
+        };
 
         document.getElementById('bevindingenForm').addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -187,12 +228,13 @@
             const webhookURL = "https://discord.com/api/webhooks/1281974885505044593/avFmXYi4bOj8zMP_SmeBMS3iOFFVjMx8GMp__wfXSEu-lO5DHtos1j3MyARwRgyESyWQ"; // Voeg hier je Discord Webhook URL toe
 
             const titel = document.getElementById('titel').value;
+            const locatie = document.getElementById('locatie').value;
             const tijd = document.getElementById('tijd').value;
             const bevindingen = document.getElementById('bevindingen').value;
             const files = document.getElementById('foto').files;
 
             const formData = new FormData();
-            formData.append('content', `**Titel:** ${titel}\n**Tijd:** ${tijd}\n**Bevindingen:**\n${bevindingen}`);
+            formData.append('content', `**Titel:** ${titel}\n**Locatie:** ${locatie}\n**Tijd:** ${tijd}\n**Bevindingen:**\n${bevindingen}`);
 
             for (let i = 0; i < files.length; i++) {
                 formData.append('file' + i, files[i]);
@@ -205,7 +247,7 @@
                 });
 
                 if (response.ok) {
-                    alert('Bevindingen en foto\'s succesvol verzonden naar Discord!');
+                    alert('Bevindingen en foto\'s succesvol verzonden');
                 } else {
                     alert('Er is iets misgegaan bij het verzenden van de bevindingen.');
                 }
