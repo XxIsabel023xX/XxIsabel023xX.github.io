@@ -221,7 +221,7 @@
             const handtekening = document.getElementById('handtekening').value;
 
             const message = {
-                "content": `**Gegevens Melder**\nNaam: ${naam}\nAdres: ${adres}\nWoonplaats: ${woonplaats}\nTelefoonnummer: ${telefoonnummer}\n\n**Gegevens Melding**\nPleegdatum/data/periode: ${pleegdatum}\nPleegplaats: ${pleegplaats}\nDetails: ${details}\n\n**Samenvatting**\nReden: ${reden}\n\n**Inhoud van de melding**\n${inhoud}\n\n**Gemaakte Afspraken**\n${afspraken}\n\n**Verificatie**\nNaam: ${naam_ambtenaar}\nDatum: ${datum}\nHandtekening: ${handtekening}`
+                "content": `**Gegevens Melder**\nNaam: ${naam}\nAdres: ${adres}\nWoonplaats: ${woonplaats}\nTelefoonnummer: ${telefoonnummer}\n\n**Gegevens Melding**\nPleegdatum/data/periode: ${pleegdatum}\nPleegplaats: ${pleegplaats}\nDetails: ${details}\n\n**Samenvatting**\nReden: ${reden}\n\n**Inhoud van de melding**\n${inhoud}\n\n**Gemaakte Afspraken**\n${afspraken}\n\n**Dit verslag is naar waarheid opgemaakt door buitengewoon opsporingsambtenaar**\nNaam: ${naam_ambtenaar}\nDatum: ${datum}\nHandtekening: ${handtekening}`
             };
 
             fetch(webhookURL, {
